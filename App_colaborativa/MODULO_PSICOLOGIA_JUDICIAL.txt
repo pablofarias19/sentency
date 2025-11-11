@@ -1,0 +1,294 @@
+═══════════════════════════════════════════════════════════════════════
+⚖️ NUEVO MÓDULO: PSICOLOGÍA JUDICIAL APLICADA
+═══════════════════════════════════════════════════════════════════════
+Fecha: 11 de noviembre de 2025
+Módulo: AnalizadorConductaJudicialRAG
+
+═══════════════════════════════════════════════════════════════════════
+🎯 OBJETIVO DEL MÓDULO
+═══════════════════════════════════════════════════════════════════════
+
+Elevar el sistema al nivel de **psicología judicial aplicada**, integrando
+un módulo de análisis conductual y decisional de jueces/autores jurídicos.
+
+**META:** Detectar CÓMO DECIDE, CÓMO RAZONA y CÓMO SE EXPRESA un juez,
+con precisión analítica y trazabilidad cuantitativa.
+
+═══════════════════════════════════════════════════════════════════════
+📊 DIMENSIONES ANALIZADAS
+═══════════════════════════════════════════════════════════════════════
+
+1. **DIMENSIÓN COGNITIVA** - Racionalidad jurídica y estructura mental
+2. **DIMENSIÓN EMOCIONAL** - Tono, empatía, irritación, prudencia
+3. **DIMENSIÓN DECISIONAL** - Estilo resolutivo, consistencia, proporcionalidad
+4. **DIMENSIÓN VALORATIVA** - Justicia, ética, derechos humanos, poder
+
+═══════════════════════════════════════════════════════════════════════
+🔍 INDICADORES MEDIDOS (12 variables)
+═══════════════════════════════════════════════════════════════════════
+
+**MÉTRICAS BASE (8):**
+
+1. **autoridad_institucional**
+   - Qué mide: Invocación al poder judicial y función institucional
+   - Patrones: "el tribunal", "esta sala", "este juzgado", "se resuelve"
+   - Interpretación: Alta → Pensamiento jerárquico y formal
+
+2. **empatia_humanista**
+   - Qué mide: Sensibilidad hacia personas y situaciones vitales
+   - Patrones: "vulnerable", "dignidad", "humanidad", "sufrimiento"
+   - Interpretación: Alta → Sensibilidad moral y contextualización
+
+3. **tono_irritativo**
+   - Qué mide: Lenguaje reactivo, condenatorio o autoritario
+   - Patrones: "inaceptable", "inadmisible", "repudia", "grave"
+   - Interpretación: Alta → Emotividad negativa y reactividad
+
+4. **proporcionalidad_argumental**
+   - Qué mide: Equilibrio y ponderación en razonamientos
+   - Patrones: "proporcional", "razonable", "equilibrado", "ponderado"
+   - Interpretación: Alta → Madurez racional y prudencia
+
+5. **referencia_derechos**
+   - Qué mide: Inclusión de derechos humanos y garantías
+   - Patrones: "derechos humanos", "garantías", "igualdad", "debido proceso"
+   - Interpretación: Alta → Visión ética y garantista
+
+6. **formalismo_juridico**
+   - Qué mide: Apego a la norma textual y legalismo
+   - Patrones: "conforme a", "según lo previsto", "artículo", "ley"
+   - Interpretación: Alta → Legalismo rígido y textualismo
+
+7. **mitigacion_retorica**
+   - Qué mide: Uso de concesiones y matices
+   - Patrones: "sin perjuicio de", "sin embargo", "a pesar de"
+   - Interpretación: Alta → Pensamiento prudente y matizado
+
+8. **autocontrol_discursivo**
+   - Qué mide: Control emocional y racionalidad en expresión
+   - Patrones: "cautela", "prudencia", "mesura", "considera", "pondera"
+   - Interpretación: Alta → Moderación y templanza
+
+**ÍNDICES DERIVADOS (4):**
+
+9. **equilibrio_emocional**
+   - Fórmula: (Autocontrol + Proporcionalidad) − Irritación
+   - Interpretación: Alta → Serenidad y control afectivo
+
+10. **predisposicion_humanista**
+    - Fórmula: (Empatía + Derechos) / 2
+    - Interpretación: Alta → Orientación ética y protectora
+
+11. **orientacion_normativa_vs_eticidad**
+    - Fórmula: Formalismo − Derechos
+    - Interpretación: Positivo → Legalista | Negativo → Axiológico | ~0 → Balanceado
+
+12. **templanza_judicial**
+    - Fórmula: (Mitigación + Autocontrol) − Irritación
+    - Interpretación: Alta → Prudencia y mesura judicial
+
+═══════════════════════════════════════════════════════════════════════
+🏆 PERFILES DECISIONALES (6 tipos)
+═══════════════════════════════════════════════════════════════════════
+
+**1. TÉCNICO-FORMALISTA**
+   - Características: Apegado a la ley, riguroso, textualista
+   - Condición: Formalismo > 4.0 AND Derechos < 1.0
+   - Ejemplo: Juez que cita profusamente artículos sin considerar contexto
+
+**2. ÉTICO-GARANTISTA**
+   - Características: Orientado a derechos, protección de garantías
+   - Condición: Derechos > 3.0 AND Formalismo > 2.0
+   - Ejemplo: Juez que combina normativa con enfoque de DDHH
+
+**3. AUTORITARIO-REACTIVO**
+   - Características: Tono fuerte, irritable, impositivo
+   - Condición: Irritación > 3.0 AND Autocontrol < 1.0
+   - Ejemplo: Juez que usa lenguaje condenatorio sin matices
+
+**4. PRUDENTE-EQUILIBRADO**
+   - Características: Ponderado, mesurado, balanceado
+   - Condición: Equilibrio_emocional > 3.0 AND Proporcionalidad > 2.0
+   - Ejemplo: Juez que sopesa todos los factores con mesura
+
+**5. EMOTIVO-HUMANISTA**
+   - Características: Empático, sensible, contextualizado
+   - Condición: Predisposición_humanista > 3.0 AND Formalismo < 2.0
+   - Ejemplo: Juez que prioriza situación personal del justiciable
+
+**6. NORMATIVO-MODERADO**
+   - Características: Formalismo moderado sin extremos
+   - Condición: 2.0 < Formalismo < 4.0 AND Irritación < 1.5
+   - Ejemplo: Juez equilibrado entre ley y contexto
+
+**7. MIXTO O INDEFINIDO**
+   - Sin predominancia clara en ninguna dimensión
+
+═══════════════════════════════════════════════════════════════════════
+📂 INTEGRACIÓN EN EL SISTEMA
+═══════════════════════════════════════════════════════════════════════
+
+**Archivo modificado:** analizador_enriquecido_rag.py
+
+**Ubicación del código:**
+- Clase AnalizadorConductaJudicialRAG: Líneas 625-800
+- Integración en análisis completo: Líneas 393-398
+- Visualización de resultados: Líneas 1000-1055
+
+**Flujo de ejecución:**
+```python
+# 1. En analizar_documento_completo():
+conducta_judicial = AnalizadorConductaJudicialRAG().analizar_conducta(texto)
+resultado['conducta_judicial'] = conducta_judicial
+
+# 2. El diccionario resultado ahora incluye 7 dimensiones:
+{
+    'autores_citados': {...},
+    'palabras_clave': {...},
+    'posiciones_doctrinales': {...},
+    'marcadores_autoridad': {...},
+    'estilo_discursivo': {...},
+    'discernimiento': {...},
+    'conducta_judicial': {...},  # 🆕 NUEVO
+    'estadisticas': {...}
+}
+```
+
+═══════════════════════════════════════════════════════════════════════
+🚀 CÓMO USAR
+═══════════════════════════════════════════════════════════════════════
+
+**1. ANÁLISIS DIRECTO:**
+```powershell
+python colaborative/scripts/analizador_enriquecido_rag.py
+```
+
+**2. DESDE GENERADOR DE INFORMES:**
+```powershell
+python colaborative/scripts/generador_informes_gemini.py "NOMBRE AUTOR"
+```
+El análisis de conducta judicial se incluye automáticamente en:
+- analisis_enriquecido['conducta_judicial']
+
+**3. INTEGRACIÓN EN PROCESAR_TODO.PY:**
+El módulo se invoca automáticamente cuando se procesan nuevos documentos.
+
+═══════════════════════════════════════════════════════════════════════
+📊 EJEMPLO DE SALIDA
+═══════════════════════════════════════════════════════════════════════
+
+```
+======================================================================
+⚖️ PSICOLOGÍA JUDICIAL APLICADA - CONDUCTA Y DECISIÓN
+======================================================================
+   (Métricas normalizadas por 1000 palabras)
+
+   🏛️ DIMENSIÓN INSTITUCIONAL:
+      • Autoridad institucional: 2.34
+        ↳ Invocación al poder judicial y función institucional
+
+   💚 DIMENSIÓN EMOCIONAL:
+      • Empatía humanista: 1.87
+        ↳ Sensibilidad hacia personas y situaciones vitales
+      • Tono irritativo: 0.45
+        ↳ Lenguaje reactivo, condenatorio o autoritario
+      • Autocontrol discursivo: 3.21
+        ↳ Control emocional y racionalidad en la expresión
+
+   ⚖️ DIMENSIÓN ARGUMENTATIVA:
+      • Proporcionalidad argumental: 2.98
+        ↳ Equilibrio y ponderación en razonamientos
+      • Mitigación retórica: 2.10
+        ↳ Uso de concesiones y matices
+
+   📜 DIMENSIÓN VALORATIVA:
+      • Referencia a derechos: 3.45
+        ↳ Inclusión de derechos humanos y garantías
+      • Formalismo jurídico: 4.12
+        ↳ Apego a la norma textual y legalismo
+
+   📊 ÍNDICES DERIVADOS:
+      • Equilibrio emocional: 5.74
+        ↳ (Autocontrol + Ponderación − Irritación) = 🟢 Alto
+      • Predisposición humanista: 2.66
+        ↳ (Empatía + Derechos humanos) / 2 = 🟡 Moderada
+      • Orientación normativa vs eticidad: 0.67
+        ↳ (Formalismo − Derechos) = ⚖️ Balanceado
+      • Templanza judicial: 4.86
+        ↳ (Mitigación + Autocontrol − Irritación) = 🟢 Alta
+
+   🏆 PERFIL DECISIONAL: Ético-garantista
+      ↳ Tipo de razonamiento y conducta judicial predominante
+```
+
+═══════════════════════════════════════════════════════════════════════
+💡 APLICACIONES PRÁCTICAS
+═══════════════════════════════════════════════════════════════════════
+
+**1. LITIGIO ESTRATÉGICO:**
+   - Predecir estilo decisional de jueces antes de presentar casos
+   - Adaptar argumentación al perfil del magistrado
+   - Elegir estrategia según si es formalista, garantista, etc.
+
+**2. ANÁLISIS ACADÉMICO:**
+   - Estudiar patrones decisionales en jurisprudencia
+   - Identificar sesgos cognitivos o emocionales
+   - Comparar estilos entre diferentes tribunales/épocas
+
+**3. FORMACIÓN JUDICIAL:**
+   - Detectar áreas de mejora en razonamiento judicial
+   - Feedback sobre equilibrio emocional y proporcionalidad
+   - Entrenamiento en templanza y control discursivo
+
+**4. INVESTIGACIÓN EN PSICOLOGÍA JURÍDICA:**
+   - Cuantificar variables cualitativas del razonamiento judicial
+   - Correlacionar perfiles con resultados procesales
+   - Estudios longitudinales de evolución decisional
+
+═══════════════════════════════════════════════════════════════════════
+⚠️ CONSIDERACIONES METODOLÓGICAS
+═══════════════════════════════════════════════════════════════════════
+
+**VENTAJAS:**
+✅ Análisis cuantitativo de variables cualitativas
+✅ Trazabilidad completa (cada métrica tiene patrones específicos)
+✅ Reproducible y escalable a grandes corpus
+✅ No requiere interpretación subjetiva manual
+
+**LIMITACIONES:**
+⚠️ Basado en patrones lingüísticos, no en contexto jurídico profundo
+⚠️ Puede haber falsos positivos (ej: cita irónica de "inaceptable")
+⚠️ Umbrales de clasificación son empíricos y ajustables
+⚠️ No reemplaza análisis cualitativo experto
+
+**MEJORAS FUTURAS:**
+🔮 Análisis semántico con embeddings (no solo regex)
+🔮 Machine learning para clasificación de perfiles
+🔮 Detección de contexto (distinguir cita de opinión propia)
+🔮 Comparación con jurisprudencia de otros tribunales
+🔮 Predicción de decisiones basada en perfil + caso
+
+═══════════════════════════════════════════════════════════════════════
+✅ RESUMEN EJECUTIVO
+═══════════════════════════════════════════════════════════════════════
+
+El sistema ahora incluye un módulo completo de **PSICOLOGÍA JUDICIAL APLICADA**
+que permite:
+
+✅ Medir 12 variables conductuales y decisionales
+✅ Clasificar en 6 perfiles decisionales
+✅ Cuantificar equilibrio emocional, templanza, humanismo
+✅ Distinguir entre pensamiento formalista vs axiológico
+✅ Detectar tono irritativo, empatía, prudencia
+
+Esto transforma el análisis de:
+- "El autor tiene alto formalismo"
+
+En:
+- "El autor presenta perfil Ético-garantista con alta referencia a derechos
+  (3.45/1000 palabras) combinada con formalismo jurídico moderado-alto (4.12/1000).
+  Muestra equilibrio emocional alto (5.74) con templanza judicial elevada (4.86),
+  lo que indica un razonamiento ponderado que integra normativa con valores
+  constitucionales sin caer en extremismos."
+
+**Esto es psicología judicial cuantificada y trazable.**

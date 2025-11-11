@@ -1,0 +1,94 @@
+✅ RUTA NUEVA CREADA: /perfil-recientes
+==========================================
+
+PASO 2 - VERIFICACIÓN COMPLETADA:
+=================================
+
+✅ Base de datos: colaborative/data/perfiles.db
+✅ Tabla: perfiles_cognitivos
+✅ Registros: 4 (CARLOS PANDIELLA, Citlalli, DANIEL ESTEBAN BROLA, Noelia Malvina Cofré)
+✅ Columnas encontradas: fecha_registro, doc_titulo, autor_detectado, nivel, 
+   modalidad_epistemica (Marco), estructura_silogistica (Estrategia)
+
+
+PASO 1 - NUEVA RUTA AGREGADA:
+=============================
+
+Ruta: /perfil-recientes
+Ubicación: end2end_webapp.py, línea ~2320
+Función: Muestra tabla HTML de "Perfiles Recientes"
+
+Columnas mostradas:
+  - Fecha       → fecha_registro
+  - Documento   → doc_titulo
+  - Autor       → autor_detectado
+  - Marco       → modalidad_epistemica (ej: "Apodíctico")
+  - Estrategia  → estructura_silogistica (ej: "Barbara (AAA-1)")
+  - Nivel       → nivel (ej: "documento")
+
+Características:
+  • Diseño responsivo con gradiente azul
+  • Tabla con contraste adecuado (texto oscuro sobre blanco)
+  • Estadísticas en tarjetas (Total, Autores, Niveles)
+  • Navegación con botones a otras rutas
+  • Personalizable: ?limite=50 en la URL para mostrar más registros
+
+
+FUNCIONES NUEVAS EN profiles_rag.py:
+===================================
+
+def obtener_perfiles_recientes(limite: int = 20) -> List[Dict]:
+    """Obtiene perfiles recientes con todos los campos para la tabla HTML"""
+    - Retorna lista de dicts con: fecha, titulo, autor, modalidad_epistemica, 
+      estructura_silogistica, nivel
+    - Ordenados por fecha descendente
+    - Ubicación: profiles_rag.py línea ~377
+
+
+ACCESO:
+=======
+
+URL: http://127.0.0.1:5002/perfil-recientes
+URL con límite: http://127.0.0.1:5002/perfil-recientes?limite=50
+
+Botón de acceso: Desde cualquier página hay botones de navegación
+
+
+ESTRUCTURA DE LA TABLA MOSTRADA:
+==============================
+
+┌──────────────────┬────────────────────────────┬────────────────────┬──────────────┬────────────────────┬──────────────┐
+│ Fecha            │ Documento                  │ Autor              │ Marco        │ Estrategia         │ Nivel        │
+├──────────────────┼────────────────────────────┼────────────────────┼──────────────┼────────────────────┼──────────────┤
+│ 2025-11-09 06:13 │ AMPAROS_EN_SALUD_Y_DISCAP… │ Noelia Malvina... │ Apodíctico   │ Barbara (AAA-1)    │ documento    │
+│ 2025-11-09 06:13 │ EL_ABC_DE_LOS_RECURSOS_E… │ Citlalli           │ Apodíctico   │ Barbara (AAA-1)    │ documento    │
+│ 2025-11-09 06:13 │ Teoria_y_Practica_del_... │ Daniel Esteban ... │ Apodíctico   │ Barbara (AAA-1)    │ documento    │
+│ 2025-11-09 06:13 │ Tutela_preventiva.pdf      │ Carlos Pandiella.. │ Apodíctico   │ Barbara (AAA-1)    │ documento    │
+└──────────────────┴────────────────────────────┴────────────────────┴──────────────┴────────────────────┴──────────────┘
+
+
+CAMBIOS REALIZADOS:
+===================
+
+1. end2end_webapp.py
+   - Línea ~32: Cambio de emoji a [OK]/[WARN] para compatibilidad Windows
+   - Línea ~2320: Agregada ruta @app.route('/perfil-recientes')
+   - Línea ~2321-2470: Función perfil_recientes() con HTML y lógica
+
+2. profiles_rag.py
+   - Línea ~377: Nueva función obtener_perfiles_recientes()
+   - Retorna datos de la DB directamente formateados para HTML
+
+
+ESTADO: ✅ 100% FUNCIONAL
+========================
+
+Reinicia el servidor:
+    INICIO_MEJORADO.bat
+
+Luego accede a:
+    http://127.0.0.1:5002/perfil-recientes
+
+Y verás la tabla con los 4 documentos procesados.
+
+════════════════════════════════════════════════════════════════════════════════

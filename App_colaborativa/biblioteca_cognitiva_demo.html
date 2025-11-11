@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Biblioteca Cognitiva de Autores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1400px; margin: 0 auto;
+            background: white; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white; padding: 30px; text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 2.5em; }
+        .stats {
+            display: flex; justify-content: space-around;
+            background: #ecf0f1; padding: 20px; margin: 0;
+        }
+        .stat {
+            text-align: center; padding: 10px;
+        }
+        .stat .number {
+            font-size: 2em; font-weight: bold; color: #2c3e50;
+        }
+        .stat .label {
+            color: #7f8c8d; font-size: 0.9em;
+        }
+        .content {
+            display: grid; grid-template-columns: 2fr 1fr;
+            gap: 30px; padding: 30px;
+        }
+        .autores-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .autor-card {
+            background: #f8f9fa; border-radius: 12px; padding: 20px;
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .autor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .autor-nombre {
+            font-size: 1.3em; font-weight: bold; color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .autor-obras {
+            color: #7f8c8d; font-size: 0.9em; margin-bottom: 15px;
+            display: -webkit-box; -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .metricas {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 15px;
+        }
+        .metrica {
+            background: white; padding: 8px; border-radius: 6px;
+            text-align: center; font-size: 0.8em;
+        }
+        .metrica .valor {
+            font-weight: bold; color: #3498db;
+        }
+        .tipo-pensamiento {
+            background: #3498db; color: white;
+            padding: 5px 10px; border-radius: 15px;
+            font-size: 0.8em; display: inline-block;
+        }
+        .relaciones {
+            background: #f1f2f6; border-radius: 12px; padding: 20px;
+        }
+        .relaciones h3 {
+            color: #2c3e50; margin-top: 0;
+        }
+        .relacion {
+            background: white; padding: 15px; border-radius: 8px;
+            margin-bottom: 10px; border-left: 3px solid #e74c3c;
+        }
+        .navegacion {
+            background: #34495e; padding: 15px; text-align: center;
+        }
+        .navegacion a {
+            color: white; text-decoration: none; margin: 0 15px;
+            padding: 8px 15px; border-radius: 5px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s;
+        }
+        .navegacion a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 BIBLIOTECA COGNITIVA DE AUTORES</h1>
+            <p>Sistema de análisis cognitivo y relacional de pensamiento jurídico</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="number">4</div>
+                <div class="label">Autores Analizados</div>
+            </div>
+            <div class="stat">
+                <div class="number">4</div>
+                <div class="label">Obras Procesadas</div>
+            </div>
+            <div class="stat">
+                <div class="number">4,000</div>
+                <div class="label">Palabras Analizadas</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="autores-section">
+                <h2>👥 Autores Disponibles</h2>
+                <div class="autores-grid">
+
+                    <div class="autor-card">
+                        <div class="autor-nombre">👤 CARLOS PANDIELLA MOLINA</div>
+                        <div class="autor-obras">📚 C:\Users\USUARIO\Programacion\modelos\App_colaborativa\colaborative\data\pdfs\general\Tutela_preventiva.pdf</div>
+                        
+                        <div class="metricas">
+                            <div class="metrica">
+                                <div class="valor">1.00</div>
+                                <div>Formalismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.06</div>
+                                <div>Creatividad</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.14</div>
+                                <div>Empirismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.80</div>
+                                <div>Abstracción</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tipo-pensamiento">Jurídico-Aristotélico</div>
+                        <small style="color: #7f8c8d;">
+                            📝 1,000 palabras | 📅 2025-11-10
+                            <br><small>🔗 Relacionado con: DANIEL ESTEBAN BROLA, Noelia Malvina Cofrè</small>
+                        </small>
+                    </div>
+
+                    <div class="autor-card">
+                        <div class="autor-nombre">👤 Citlalli</div>
+                        <div class="autor-obras">📚 C:\Users\USUARIO\Programacion\modelos\App_colaborativa\colaborative\data\pdfs\general\EL_ABC_DE_LOS_RECURSOS_E_INCIDENTES_EN_AMPARO.pdf</div>
+                        
+                        <div class="metricas">
+                            <div class="metrica">
+                                <div class="valor">0.00</div>
+                                <div>Formalismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.00</div>
+                                <div>Creatividad</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.00</div>
+                                <div>Empirismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.50</div>
+                                <div>Abstracción</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tipo-pensamiento">Jurídico-Aristotélico</div>
+                        <small style="color: #7f8c8d;">
+                            📝 1,000 palabras | 📅 2025-11-10
+                            
+                        </small>
+                    </div>
+
+                    <div class="autor-card">
+                        <div class="autor-nombre">👤 DANIEL ESTEBAN BROLA</div>
+                        <div class="autor-obras">📚 C:\Users\USUARIO\Programacion\modelos\App_colaborativa\colaborative\data\pdfs\general\Teoria_y_Practica_del_Amparo_-_Daniel_Brola_-_2018.pdf</div>
+                        
+                        <div class="metricas">
+                            <div class="metrica">
+                                <div class="valor">0.67</div>
+                                <div>Formalismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.05</div>
+                                <div>Creatividad</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.18</div>
+                                <div>Empirismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.94</div>
+                                <div>Abstracción</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tipo-pensamiento">Jurídico-Aristotélico</div>
+                        <small style="color: #7f8c8d;">
+                            📝 1,000 palabras | 📅 2025-11-10
+                            <br><small>🔗 Relacionado con: CARLOS PANDIELLA MOLINA, Noelia Malvina Cofrè</small>
+                        </small>
+                    </div>
+
+                    <div class="autor-card">
+                        <div class="autor-nombre">👤 Noelia Malvina Cofrè</div>
+                        <div class="autor-obras">📚 C:\Users\USUARIO\Programacion\modelos\App_colaborativa\colaborative\data\pdfs\general\AMPAROS_EN_SALUD_Y_DISCAPACIDAD.pdf</div>
+                        
+                        <div class="metricas">
+                            <div class="metrica">
+                                <div class="valor">0.82</div>
+                                <div>Formalismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.08</div>
+                                <div>Creatividad</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.10</div>
+                                <div>Empirismo</div>
+                            </div>
+                            <div class="metrica">
+                                <div class="valor">0.95</div>
+                                <div>Abstracción</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tipo-pensamiento">Jurídico-Aristotélico</div>
+                        <small style="color: #7f8c8d;">
+                            📝 1,000 palabras | 📅 2025-11-10
+                            <br><small>🔗 Relacionado con: CARLOS PANDIELLA MOLINA, DANIEL ESTEBAN BROLA</small>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="relaciones">
+                <h3>🔗 Relaciones Cognitivas</h3>
+                <p style="color: #7f8c8d; font-size: 0.9em;">
+                    Autores con perfiles cognitivos similares basados en análisis multidimensional
+                </p>
+
+                <div class="relacion">
+                    <strong>CARLOS PANDIELLA MOLINA</strong>
+                    <br>
+
+                    <small>↔️ <strong>DANIEL ESTEBAN BROLA</strong> (87.3% similitud)</small><br>
+                    <small style="color: #7f8c8d;">Dimensiones afines: Creatividad argumentativa (0.06), Enfoque empírico (0.16)</small><br>
+
+                    <small>↔️ <strong>Noelia Malvina Cofrè</strong> (90.4% similitud)</small><br>
+                    <small style="color: #7f8c8d;">Dimensiones afines: Formalismo jurídico (0.91), Creatividad argumentativa (0.07)</small><br>
+</div>
+                <div class="relacion">
+                    <strong>DANIEL ESTEBAN BROLA</strong>
+                    <br>
+
+                    <small>↔️ <strong>CARLOS PANDIELLA MOLINA</strong> (87.3% similitud)</small><br>
+                    <small style="color: #7f8c8d;">Dimensiones afines: Creatividad argumentativa (0.06), Enfoque empírico (0.16)</small><br>
+
+                    <small>↔️ <strong>Noelia Malvina Cofrè</strong> (93.2% similitud)</small><br>
+                    <small style="color: #7f8c8d;">Dimensiones afines: Formalismo jurídico (0.75), Creatividad argumentativa (0.06)</small><br>
+</div>
+                <div class="relacion">
+                    <strong>Noelia Malvina Cofrè</strong>
+                    <br>
+
+                    <small>↔️ <strong>CARLOS PANDIELLA MOLINA</strong> (90.4% similitud)</small><br>
+                    <small style="color: #7f8c8d;">Dimensiones afines: Formalismo jurídico (0.91), Creatividad argumentativa (0.07)</small><br>
+
+                    <small>↔️ <strong>DANIEL ESTEBAN BROLA</strong> (93.2% similitud)</small><br>
+                    <small style="color: #7f8c8d;">Dimensiones afines: Formalismo jurídico (0.75), Creatividad argumentativa (0.06)</small><br>
+</div>
+            </div>
+        </div>
+        
+        <div class="navegacion">
+            <a href="/">🏠 Inicio</a>
+            <a href="/cognitivo">🧠 Análisis Cognitivo</a>
+            <a href="/radar">📊 Radar Cognitivo</a>
+            <a href="/perfiles">👥 Perfiles</a>
+        </div>
+    </div>
+    
+    <script>
+        // Hacer clickeable cada autor
+        document.querySelectorAll('.autor-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    const nombre = this.querySelector('.autor-nombre').textContent.replace('👤 ', '');
+                    window.location.href = `/autor/${encodeURIComponent(nombre)}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

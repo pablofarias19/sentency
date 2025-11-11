@@ -1,0 +1,45 @@
+{
+  "metadata_judicial": {
+    "tipo_documento": "",
+    "jurisdiccion": "",
+    "tribunal": "",
+    "fecha_sentencia": "",
+    "numero_expediente": "",
+    "caratula": "",
+    "tipo_proceso": "",
+    "materia": "",
+    "juez_presidente": "",
+    "jueces_vocales": [],
+    "partes": {
+      "actor": "",
+      "demandado": "",
+      "terceros": []
+    },
+    "abogados": {
+      "actora": [],
+      "demandada": [],
+      "terceros": []
+    },
+    "fecha_inicio_proceso": "",
+    "duracion_proceso_dias": 0,
+    "instancia": "",
+    "decision": {
+      "tipo": "",
+      "resultado": "",
+      "costas": "",
+      "honorarios": ""
+    },
+    "normativa_aplicada": [],
+    "jurisprudencia_citada": [],
+    "doctrina_citada": [],
+    "precedentes": [],
+    "categoria_tematica": "",
+    "subcategoria": "",
+    "palabras_clave": [],
+    "complejidad_caso": "",
+    "valor_economico": "",
+    "archivo_origen": "",
+    "fecha_procesamiento": "",
+    "version_analisis": "7.3"
+  }
+}

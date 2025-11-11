@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "autor": "Noelia Malvina Cofrè",
+    "tipo_pensamiento": "Formalista",
+    "tono": "asertivo",
+    "fuente": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\data\\pdfs\\general\\AMPAROS_EN_SALUD_Y_DISCAPACIDAD.pdf",
+    "fecha": "2025-11-07T22:14:21.096994",
+    "vector_path": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\bases_rag\\cognitiva\\faiss_index\\noelia_malvina_cofrè_20251107_221421.npy"
+  },
+  {
+    "id": 2,
+    "autor": "Citlalli",
+    "tipo_pensamiento": "Conceptualista",
+    "tono": "asertivo",
+    "fuente": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\data\\pdfs\\general\\EL_ABC_DE_LOS_RECURSOS_E_INCIDENTES_EN_AMPARO.pdf",
+    "fecha": "2025-11-07T22:14:30.022031",
+    "vector_path": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\bases_rag\\cognitiva\\faiss_index\\citlalli_20251107_221430.npy"
+  },
+  {
+    "id": 3,
+    "autor": "Autor no identificado",
+    "tipo_pensamiento": "Formalista",
+    "tono": "asertivo",
+    "fuente": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\data\\pdfs\\general\\LA_TUTELA_DEL_CONSUMIDOR_EN_LOS_-_Diego_Gonzalez_Vila.pdf",
+    "fecha": "2025-11-07T22:14:41.490781",
+    "vector_path": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\bases_rag\\cognitiva\\faiss_index\\autor_no_identificado_20251107_221441.npy"
+  },
+  {
+    "id": 4,
+    "autor": "Autor no identificado",
+    "tipo_pensamiento": "Formalista",
+    "tono": "asertivo",
+    "fuente": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\data\\pdfs\\general\\Teoria_y_Practica_del_Amparo_-_Daniel_Brola_-_2018.pdf",
+    "fecha": "2025-11-07T22:15:02.395175",
+    "vector_path": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\bases_rag\\cognitiva\\faiss_index\\autor_no_identificado_20251107_221502.npy"
+  },
+  {
+    "id": 5,
+    "autor": "Autor no identificado",
+    "tipo_pensamiento": "Formalista",
+    "tono": "asertivo",
+    "fuente": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\data\\pdfs\\general\\Tutela_preventiva.pdf",
+    "fecha": "2025-11-07T22:15:34.655349",
+    "vector_path": "C:\\Users\\USUARIO\\Programacion\\modelos\\App_colaborativa\\colaborative\\bases_rag\\cognitiva\\faiss_index\\autor_no_identificado_20251107_221534.npy"
+  }
+]

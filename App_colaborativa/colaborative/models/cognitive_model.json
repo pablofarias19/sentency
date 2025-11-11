@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "created": "2025-11-07T21:07:26.082338",
+  "description": "Modelo cognitivo para análisis jurídico especializado",
+  "weights": {
+    "formalismo": 1.0,
+    "creatividad": 1.2,
+    "dogmatismo": 0.8,
+    "empirismo": 1.1,
+    "interdisciplinariedad": 1.3,
+    "nivel_abstraccion": 1.0,
+    "complejidad_sintactica": 0.9,
+    "uso_jurisprudencia": 1.1
+  },
+  "thresholds": {
+    "formalista": 0.3,
+    "realista": 0.2,
+    "interpretativo": 0.15,
+    "tradicionalista": 0.1,
+    "interdisciplinario": 0.05
+  },
+  "embedding_config": {
+    "model_name": "all-mpnet-base-v2",
+    "dimension": 768,
+    "normalize": true
+  },
+  "analysis_params": {
+    "min_text_length": 100,
+    "max_sample_length": 1000,
+    "enable_author_detection": true,
+    "enable_year_detection": true,
+    "enable_title_detection": true
+  }
+}

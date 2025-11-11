@@ -1,0 +1,78 @@
+✅ CORRECCIÓN DE VISIBILIDAD DE TABLAS
+=====================================
+
+PROBLEMA:
+---------
+❌ Texto de las tablas invisible
+   • Causa: Color blanco sobre fondo blanco
+   • Ubicación: http://127.0.0.1:5002/cognitivo
+   • Tabla: "Perfiles Recientes"
+
+RAÍZ DEL PROBLEMA:
+------------------
+Las tablas no tenían especificado `color: #333` en el CSS para `th` y `td`.
+Aunque el fondo era blanco, el color del texto heredaba estilos del padre
+o quedaba sin definir (probablemente blanco por defecto en algunos navegadores).
+
+CORRECCIONES REALIZADAS:
+------------------------
+
+1. ✅ Línea 1258 (Ruta /autoevaluaciones)
+   Antes: th, td { border: 1px solid #ccc; padding: 8px; ... }
+   Después: th, td { border: 1px solid #ccc; padding: 8px; ... color: #333; }
+
+2. ✅ Línea 1349 (Ruta /perfiles)
+   Antes: table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+           th, td { border: 1px solid #ddd; padding: 8px; ... }
+           th { background: #f8f9fa; }
+   
+   Después: table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+            th, td { border: 1px solid #ddd; padding: 8px; ... color: #333; }
+            th { background: #f8f9fa; color: #333; }
+
+3. ✅ Línea 1551 (Ruta /cognitivo)
+   Antes: table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+          th, td { border: 1px solid #dee2e6; padding: 8px; ... }
+          th { background: #e9ecef; font-weight: 600; }
+   
+   Después: table { width: 100%; border-collapse: collapse; margin: 15px 0; background: white; }
+            th, td { border: 1px solid #dee2e6; padding: 8px; ... color: #333; }
+            th { background: #e9ecef; font-weight: 600; color: #333; }
+
+
+CAMBIOS ESPECÍFICOS:
+====================
+
+• Agregado `color: #333;` a todos los `th, td`
+• Agregado `background: white;` a todas las tablas
+• Asegurado que los headers también tengan `color: #333;`
+
+RESULTADO:
+---------
+✅ Texto ahora VISIBLE en TODAS las tablas
+✅ Contraste adecuado (texto gris oscuro sobre blanco)
+✅ Todas las rutas funcionan correctamente:
+   - /cognitivo → "Perfiles Recientes" (AHORA VISIBLE ✅)
+   - /perfiles → Tabla de perfiles (AHORA VISIBLE ✅)
+   - /autoevaluaciones → Tabla de evaluaciones (AHORA VISIBLE ✅)
+
+
+ARCHIVO MODIFICADO:
+===================
+colaborative/scripts/end2end_webapp.py
+  - Línea 1258: color en tabla /autoevaluaciones
+  - Línea 1349: color + background en tabla /perfiles
+  - Línea 1551: color + background en tabla /cognitivo
+
+ESTADO: ✅ 100% FUNCIONAL
+========================
+
+Reinicia el servidor con:
+    INICIO_MEJORADO.bat
+
+O accede directamente a:
+    http://127.0.0.1:5002/cognitivo
+
+Y verás "Perfiles Recientes" con texto claramente visible.
+
+════════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚖️ Comparación de Autores - Sistema Cognitivo</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --light-bg: #ecf0f1;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .selection-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .author-selector {
+            text-align: center;
+        }
+
+        .author-selector h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .author-selector select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .author-selector select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .vs-indicator {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .compare-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .compare-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .comparison-results {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .similarity-score {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--success-color);
+            margin-bottom: 10px;
+        }
+
+        .similarity-label {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .similarity-interpretation {
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .similarity-high { background: var(--success-color); }
+        .similarity-medium { background: var(--warning-color); }
+        .similarity-low { background: var(--accent-color); }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .author-profile {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .profile-tags {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .tag-reasoning { background: var(--secondary-color); }
+        .tag-modality { background: var(--success-color); }
+        .tag-style { background: var(--warning-color); }
+
+        .metrics-comparison {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .metrics-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .metric-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 10px;
+        }
+
+        .metric-label {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .metric-value {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .metric-bar {
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--success-color));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .differences-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .differences-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .difference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .difference-dimension {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .difference-value {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--light-text);
+        }
+
+        .error-message {
+            background: var(--accent-color);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--light-text), #95a5a6);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .selection-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .vs-indicator {
+                font-size: 2rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/autores" class="back-btn">
+            ⬅️ Volver a Referencias
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>⚖️ Comparación de Autores</h1>
+            <p>Análisis comparativo de metodologías y patrones cognitivos</p>
+        </div>
+
+        <!-- Panel de Selección -->
+        <div class="selection-panel">
+            <div class="selection-grid">
+                <div class="author-selector">
+                    <h3>👤 Primer Autor</h3>
+                    <select id="autor_a">
+                        <option value="">Seleccionar autor...</option>
+                        {% for autor in autores %}
+                        <option value="{{ autor }}">{{ autor }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="vs-indicator">VS</div>
+                
+                <div class="author-selector">
+                    <h3>👤 Segundo Autor</h3>
+                    <select id="autor_b">
+                        <option value="">Seleccionar autor...</option>
+                        {% for autor in autores %}
+                        <option value="{{ autor }}">{{ autor }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <button class="compare-btn" onclick="compararAutores()">
+                🔍 Comparar Autores
+            </button>
+        </div>
+
+        <!-- Resultados de Comparación -->
+        <div id="comparison-results" class="comparison-results">
+            <!-- Se llena dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function compararAutores() {
+            const autorA = document.getElementById('autor_a').value;
+            const autorB = document.getElementById('autor_b').value;
+            
+            if (!autorA || !autorB) {
+                alert('🚨 Por favor selecciona ambos autores para comparar');
+                return;
+            }
+            
+            if (autorA === autorB) {
+                alert('🚨 Por favor selecciona dos autores diferentes');
+                return;
+            }
+            
+            // Mostrar loading
+            const resultsContainer = document.getElementById('comparison-results');
+            resultsContainer.style.display = 'block';
+            resultsContainer.innerHTML = '<div class="loading">🔄 Comparando autores...</div>';
+            
+            // Hacer petición AJAX
+            fetch(`/api/autores/comparar?autor_a=${encodeURIComponent(autorA)}&autor_b=${encodeURIComponent(autorB)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        mostrarError(data.error);
+                    } else {
+                        mostrarResultados(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    mostrarError('Error al realizar la comparación. Inténtalo de nuevo.');
+                });
+        }
+        
+        function mostrarError(mensaje) {
+            const resultsContainer = document.getElementById('comparison-results');
+            resultsContainer.innerHTML = `
+                <div class="error-message">
+                    ❌ ${mensaje}
+                </div>
+            `;
+        }
+        
+        function mostrarResultados(data) {
+            const similarity = data.similaridad_general || 0;
+            const simPercentage = Math.round(similarity * 100);
+            
+            let similarityClass = 'similarity-low';
+            let similarityText = 'Baja Similaridad';
+            
+            if (similarity > 0.7) {
+                similarityClass = 'similarity-high';
+                similarityText = 'Alta Similaridad';
+            } else if (similarity > 0.4) {
+                similarityClass = 'similarity-medium';
+                similarityText = 'Similaridad Moderada';
+            }
+            
+            let html = `
+                <!-- Header de Resultados -->
+                <div class="results-header">
+                    <div class="similarity-score">${simPercentage}%</div>
+                    <div class="similarity-label">Similaridad Cognitiva</div>
+                    <div class="similarity-interpretation ${similarityClass}">
+                        ${similarityText}
+                    </div>
+                </div>
+                
+                <!-- Perfiles de Autores -->
+                <div class="comparison-grid">
+                    <div class="author-profile">
+                        <div class="profile-header">
+                            <div class="profile-name">${data.autor_a}</div>
+                            <div class="profile-tags">
+                                <span class="tag tag-reasoning">Autor A</span>
+                            </div>
+                        </div>
+                        <!-- Aquí irían métricas específicas del autor A -->
+                    </div>
+                    
+                    <div class="author-profile">
+                        <div class="profile-header">
+                            <div class="profile-name">${data.autor_b}</div>
+                            <div class="profile-tags">
+                                <span class="tag tag-modality">Autor B</span>
+                            </div>
+                        </div>
+                        <!-- Aquí irían métricas específicas del autor B -->
+                    </div>
+                </div>
+            `;
+            
+            // Agregar métricas detalladas si están disponibles
+            if (data.dimensiones_clave) {
+                html += `
+                    <div class="metrics-comparison">
+                        <h3 class="metrics-title">📊 Comparación por Dimensiones</h3>
+                `;
+                
+                for (const [dimension, valor] of Object.entries(data.dimensiones_clave)) {
+                    const percentage = Math.round(valor * 100);
+                    html += `
+                        <div class="metric-row">
+                            <div class="metric-value">${percentage}%</div>
+                            <div class="metric-label">${dimension.replace('_', ' ').toUpperCase()}</div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            }
+            
+            // Agregar diferencias principales
+            if (data.diferencias_principales) {
+                html += `
+                    <div class="differences-panel">
+                        <h3 class="differences-title">⚡ Principales Diferencias</h3>
+                `;
+                
+                for (const [dimension, diferencia] of data.diferencias_principales.slice(0, 5)) {
+                    html += `
+                        <div class="difference-item">
+                            <span class="difference-dimension">${dimension.replace('_', ' ').toUpperCase()}</span>
+                            <span class="difference-value">${diferencia.toFixed(3)}</span>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            }
+            
+            document.getElementById('comparison-results').innerHTML = html;
+            
+            // Animar barras de progreso
+            setTimeout(() => {
+                const bars = document.querySelectorAll('.metric-fill');
+                bars.forEach(bar => {
+                    bar.style.width = bar.style.width;
+                });
+            }, 100);
+        }
+        
+        // Pre-seleccionar autor si viene en URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const autorParam = urlParams.get('autor_a');
+            
+            if (autorParam) {
+                document.getElementById('autor_a').value = autorParam;
+            }
+        });
+    </script>
+</body>
+</html>

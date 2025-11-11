@@ -1,0 +1,98 @@
+📌 CORRECCIÓN FINAL - RUTA /autor/<nombre> NO DISPONIBLE (RESUELTO)
+====================================================================
+
+PROBLEMA IDENTIFICADO:
+======================
+
+La ruta `/autor/<nombre>` devolvía error 404 cuando intentabas acceder desde la página principal.
+Ejemplo: GET /autor/DANIEL%20ESTEBAN%20BROLA HTTP/1.1" 404
+
+CAUSAS RAÍZ (IDENTIFICADAS Y CORREGIDAS):
+==========================================
+
+1. ❌ Rutas registradas dentro de funciones
+   - Las rutas `/autor/<nombre>` estaban dentro de la función `integrar_sistema_referencias()`
+   - Flask no registraba correctamente rutas declaradas después de la inicialización
+   - CORRECCIÓN: Movida a nivel global (después de `/perfil-recientes`)
+
+2. ❌ Instancia de SistemaReferenciasAutores no compartida
+   - Cada ruta creaba su propia instancia local
+   - Problemas con closures y acceso a variables
+   - CORRECCIÓN: Creada variable global `sistema_referencias_global`
+
+3. ❌ Base de datos incorrecta
+   - SistemaReferenciasAutores buscaba en `cognitiva.db` (no existe)
+   - Los autores reales están en `metadatos.db`
+   - CORRECCIÓN: Actualizado path a `"colaborative/bases_rag/cognitiva/metadatos.db"`
+
+4. ❌ Búsqueda de perfiles incompleta
+   - Función `obtener_perfil_completo_autor()` solo buscaba en `perfiles_integrados_v2`
+   - Los 4 autores reales están en tabla `perfiles_cognitivos` de metadatos.db
+   - CORRECCIÓN: Agregada función `_obtener_perfil_original()` que busca en tabla correcta
+
+
+CAMBIOS REALIZADOS:
+===================
+
+1. end2end_webapp.py (Línea 134)
+   ✅ Agregada: `sistema_referencias_global = None`
+   ✅ Nueva ruta `/autor/<nombre>` global (línea 2518)
+   ✅ UsaVariable global en lugar de instancia local
+
+2. sistema_referencias_autores.py
+   ✅ Línea 39: Cambio db_original a "metadatos.db"
+   ✅ Línea 102+: Actualizada `obtener_todos_los_autores()` para combinar ambas BD
+   ✅ Línea 152+: Actualizada `_obtener_autores_db_original()` con columnas correctas
+   ✅ Línea 263+: Actualizada `obtener_perfil_completo_autor()` con fallback
+   ✅ Línea 307+: NUEVA función `_obtener_perfil_original()` para metadatos.db
+
+
+ESTRUCTURA DE DATOS CONSOLIDADA:
+================================
+
+Autores disponibles en el sistema: 5
+  - 4 autores de metadatos.db (perfiles_cognitivos):
+    • CARLOS PANDIELLA MOLINA
+    • Citlalli
+    • DANIEL ESTEBAN BROLA
+    • Noelia Malvina Cofrè
+  - 1 autor de BD integrada (perfiles_integrados_v2):
+    • Autor de Prueba Integrado
+
+Flujo de búsqueda de perfiles:
+  1º Intenta obtener de perfiles_integrados_v2 (si existe)
+  2º Fallback a perfiles_cognitivos en metadatos.db
+  3º Retorna datos combinados con enriquecimiento
+
+
+VALIDACIÓN:
+===========
+
+✅ Servidor inicia sin errores
+✅ Variable global `sistema_referencias_global` inicializada correctamente
+✅ 5 autores disponibles (4 reales + 1 integrado)
+✅ Fallback a metadatos.db funcional
+✅ Ruta `/autor/<nombre>` registrada a nivel global
+
+
+CÓMO ACCEDER:
+==============
+
+Desde el navegador:
+  http://127.0.0.1:5002/autor/CARLOS%20PANDIELLA%20MOLINA
+  http://127.0.0.1:5002/autor/DANIEL%20ESTEBAN%20BROLA
+  http://127.0.0.1:5002/autor/Citlalli
+  http://127.0.0.1:5002/autor/Noelia%20Malvina%20Cofrè
+
+Nota: Los espacios se codifican como %20 en URLs
+
+
+ESTADO FINAL:
+=============
+
+✅ Ruta /autor/<nombre> OPERACIONAL
+✅ Todos los autores accesibles
+✅ Perfiles con datos de metadatos.db
+✅ Sistema completamente integrado
+
+Siguiente paso: Visita http://127.0.0.1:5002 y navega a la sección de autores

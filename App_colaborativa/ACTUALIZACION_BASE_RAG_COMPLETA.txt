@@ -1,0 +1,199 @@
+═══════════════════════════════════════════════════════════════════════
+📊 ACTUALIZACIÓN: GEMINI AHORA LEE TODA LA BASE RAG
+═══════════════════════════════════════════════════════════════════════
+Fecha: 11 de noviembre de 2025
+Archivo modificado: generador_informes_gemini.py
+
+═══════════════════════════════════════════════════════════════════════
+🎯 PROBLEMA RESUELTO
+═══════════════════════════════════════════════════════════════════════
+
+ANTES:
+- Gemini solo recibía ~22 campos seleccionados manualmente
+- Muchos datos valiosos de la base RAG no se usaban
+- Campos como autores_citados, referencias_doctrinarias, cadenas_argumentativas,
+  estructura_retorica, conectores_por_tipo, etc. NO llegaban a Gemini
+
+AHORA:
+✅ Gemini recibe LAS 52 COLUMNAS COMPLETAS de metadatos.db
+✅ Extracción dinámica: SELECT * FROM perfiles_cognitivos
+✅ Todos los campos disponibles con prefijo 'rag_' en el diccionario
+✅ Prompt actualizado instruyendo explícitamente a Gemini que explore TODOS los datos
+✅ Instrucciones críticas agregadas para que NO se limite a métricas resumidas
+
+═══════════════════════════════════════════════════════════════════════
+📋 CAMBIOS TÉCNICOS IMPLEMENTADOS
+═══════════════════════════════════════════════════════════════════════
+
+1. EXTRACCIÓN COMPLETA (Líneas 69-74):
+   ```python
+   # ANTES:
+   c_meta.execute("""
+       SELECT autor, archivo, fuente, tipo_pensamiento,
+              formalismo, creatividad, ... # Solo 22 campos
+   
+   # AHORA:
+   c_meta.execute("""
+       SELECT * FROM perfiles_cognitivos  # TODAS las 52 columnas
+       WHERE autor = ?
+   ```
+
+2. DICCIONARIO DINÁMICO (Líneas 138-154):
+   ```python
+   # Crear diccionario con TODAS las columnas dinámicamente
+   for i, columna in enumerate(columnas_meta):
+       valor = perfil_meta[i] if i < len(perfil_meta) else None
+       datos[f"rag_{columna}"] = valor  # Prefijo rag_ para identificar
+   ```
+
+3. PROMPT ENRIQUECIDO (Líneas 260-280):
+   ```python
+   # Agregar TODOS los datos RAG al prompt
+   for key, value in datos.items():
+       if key.startswith('rag_') and value is not None:
+           prompt += f"   • {campo}: {value}\n"
+   ```
+
+4. INSTRUCCIONES EXPLÍCITAS (Líneas 450-460):
+   ```
+   IMPORTANTE: 
+   - Tienes acceso a 52 CAMPOS COMPLETOS de la base RAG
+   - NO te limites solo a las métricas resumidas
+   - Explora: fechas, autores citados, referencias doctrinarias,
+     cadenas argumentativas, estructura retórica, conectores, etc.
+   - Menciona específicamente los campos que uses
+   ```
+
+═══════════════════════════════════════════════════════════════════════
+📊 COLUMNAS DISPONIBLES (52 CAMPOS)
+═══════════════════════════════════════════════════════════════════════
+
+IDENTIFICACIÓN:
+1. id                          14. fecha_analisis
+2. autor                       15. vector_path
+3. fuente                      40. fecha_registro
+4. archivo                     41. fecha_publicacion
+                               42. periodo_doctrinal
+
+RASGOS COGNITIVOS:
+5. formalismo                  17. autor_confianza
+6. creatividad                 19. razonamiento_top3
+7. dogmatismo                  20. razonamiento_dominante
+8. empirismo                   24. nivel_tecnico
+9. interdisciplinariedad       38. indice_teleologico
+10. nivel_abstraccion          48. nivel_dialectico
+11. complejidad_sintactica
+12. uso_jurisprudencia
+
+ANÁLISIS ARISTOTÉLICO:
+13. tono                       21. ethos
+                               22. pathos
+                               23. logos
+                               36. perfil_aristotelico_json
+
+METODOLÓGICO/TEXTUAL:
+16. texto_muestra              31. modalidad_epistemica
+18. autores_citados            32. estructura_silogistica
+25. latinismos                 33. silogismo_confianza
+26. citas_legales              34. conectores_logicos
+27. referencias_doctrinarias   35. razonamiento_ejemplos
+28. total_palabras             43. cadenas_argumentativas
+29. notas_pie_detectadas       44. objeciones_anticipadas
+30. metadatos_json             45. refutaciones
+51. densidad_citas             46. estructura_retorica
+52. uso_ejemplos               47. mapa_fuerza
+                               49. conectores_por_tipo
+                               50. tipos_silogismo
+                               39. roles_parrafos
+
+═══════════════════════════════════════════════════════════════════════
+🎯 IMPACTO EN LOS INFORMES
+═══════════════════════════════════════════════════════════════════════
+
+ANTES: Informes basados en ~22 métricas básicas
+AHORA:  Informes basados en 52 campos completos + análisis enriquecido RAG
+
+EJEMPLOS DE NUEVA INFORMACIÓN DISPONIBLE:
+- ✅ Autores citados literalmente del campo
+- ✅ Referencias doctrinarias específicas
+- ✅ Cadenas argumentativas detectadas
+- ✅ Estructura retórica completa
+- ✅ Tipos de silogismo utilizados
+- ✅ Conectores lógicos por tipo
+- ✅ Mapa de fuerza argumentativa
+- ✅ Objeciones anticipadas y refutaciones
+- ✅ Roles de párrafos (intro, tesis, desarrollo, conclusión)
+- ✅ Periodo doctrinal de publicación
+- ✅ Metadatos JSON adicionales
+
+═══════════════════════════════════════════════════════════════════════
+🚀 CÓMO USAR
+═══════════════════════════════════════════════════════════════════════
+
+1. DESDE LÍNEA DE COMANDOS:
+   ```powershell
+   $env:PYTHONIOENCODING="utf-8"
+   python colaborative/scripts/generador_informes_gemini.py "NOMBRE AUTOR"
+   ```
+
+2. DESDE LA WEB:
+   - Ir a /perfil/NOMBRE_AUTOR/
+   - Clic en botón "🤖 Informe Gemini"
+   - Gemini recibirá automáticamente todos los 52 campos
+
+3. VERIFICAR DATOS DISPONIBLES:
+   ```powershell
+   python -c "import sqlite3; conn=sqlite3.connect('colaborative/bases_rag/cognitiva/metadatos.db'); c=conn.cursor(); c.execute('PRAGMA table_info(perfiles_cognitivos)'); print('\n'.join([f'{i[1]}' for i in c.fetchall()]))"
+   ```
+
+═══════════════════════════════════════════════════════════════════════
+💡 VENTAJAS DE ESTE ENFOQUE
+═══════════════════════════════════════════════════════════════════════
+
+✅ ESCALABILIDAD: Si agregas nuevas columnas a la BD, automáticamente 
+                  se incluyen en el análisis (SELECT *)
+
+✅ COMPLETITUD:   No se pierde ninguna información valiosa
+
+✅ TRANSPARENCIA: El prompt muestra explícitamente TODOS los datos
+                  disponibles para que Gemini los vea
+
+✅ FLEXIBILIDAD:  Gemini decide qué datos son relevantes para cada autor
+                  según el contexto
+
+✅ TRAZABILIDAD:  Gemini puede citar campos específicos: 
+                  "Según el campo 'periodo_doctrinal'..."
+
+═══════════════════════════════════════════════════════════════════════
+⚠️ CONSIDERACIONES
+═══════════════════════════════════════════════════════════════════════
+
+- El prompt es más largo (incluye 52 campos) pero Gemini maneja bien
+  contextos extensos (gemini-2.0-flash tiene ventana de 1M tokens)
+
+- Los campos con prefijo 'rag_' se distinguen de campos procesados
+  (metodologia, originalidad, coherencia de autor_centrico.db)
+
+- El análisis enriquecido (analizador_enriquecido_rag.py) se mantiene
+  como capa adicional independiente
+
+- Encoding UTF-8 configurado para evitar errores con emojis en Windows
+
+═══════════════════════════════════════════════════════════════════════
+📚 ARCHIVOS RELACIONADOS
+═══════════════════════════════════════════════════════════════════════
+
+- generador_informes_gemini.py     (MODIFICADO - extracción completa)
+- analizador_enriquecido_rag.py    (INDEPENDIENTE - análisis adicional)
+- metadatos.db                      (52 columnas disponibles)
+- autor_centrico.db                 (perfiles autorales expandidos)
+
+═══════════════════════════════════════════════════════════════════════
+✅ RESULTADO
+═══════════════════════════════════════════════════════════════════════
+
+Gemini ahora tiene acceso COMPLETO a toda la información disponible
+en la base RAG. Los informes generados son mucho más ricos, detallados
+y fundamentados en TODOS los datos capturados del sistema.
+
+NO hay información que se pierda en el camino. TODO llega a Gemini.

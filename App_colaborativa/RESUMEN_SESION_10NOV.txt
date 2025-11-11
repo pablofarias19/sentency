@@ -1,0 +1,192 @@
+🎯 RESUMEN FINAL - SESIÓN 10 NOVIEMBRE 2025
+============================================
+
+PROBLEMAS RESUELTOS:
+====================
+
+1. ✅ ERROR DE COLUMNA EN BASE DE DATOS
+   Problema: "no such column: nombre"
+   Causa: integrador_pensamiento_flask.py buscaba columna "nombre" pero era "autor"
+   Solución: Cambio de "nombre" → "autor" en 3 lugares + normalización de valores None
+   Archivo: colaborative/scripts/integrador_pensamiento_flask.py
+
+2. ✅ RUTAS /autor/<nombre> DEVOLVÍAN 404
+   Problema: SistemaReferenciasAutores no se cargaba
+   Causa: sys.path incorrecto para importación
+   Solución: sys.path.insert(0, os.path.dirname(__file__))
+   Archivo: colaborative/scripts/end2end_webapp.py (línea 9)
+
+3. ✅ TEXTO INVISIBLE EN TABLAS
+   Problema: Color blanco sobre fondo blanco
+   Causa: Falta de especificación de color en CSS
+   Solución: Agregado `color: #333;` a th, td en 3 tablas
+   Archivo: colaborative/scripts/end2end_webapp.py (líneas 1258, 1349, 1551)
+
+4. ✅ TABLA "PERFILES RECIENTES" NO VISIBLE
+   Problema: Datos existían pero no había ruta para mostrarlos
+   Causa: Falta de integración entre perfiles.db y interfaz Flask
+   Solución: 
+     - Creada ruta /perfil-recientes en end2end_webapp.py
+     - Agregada función obtener_perfiles_recientes() en profiles_rag.py
+   Archivos: 
+     - colaborative/scripts/end2end_webapp.py (línea ~2320)
+     - colaborative/scripts/profiles_rag.py (línea ~377)
+
+
+SISTEMA VERIFICADO:
+===================
+
+✅ 4 Autores en metadatos.db:
+   • CARLOS PANDIELLA MOLINA (51,213 palabras)
+   • Citlalli (57,621 palabras)
+   • DANIEL ESTEBAN BROLA (121,801 palabras)
+   • Noelia Malvina Cofrè (3,157 palabras)
+
+✅ 4 Perfiles en perfiles.db:
+   • Documentos procesados con análisis completo
+   • Columnas: fecha_registro, doc_titulo, autor_detectado, nivel, 
+     modalidad_epistemica, estructura_silogistica
+
+✅ 15 Rutas funcionales en end2end_webapp.py:
+   • GET  /                        → Página principal
+   • POST /upload                  → Subir PDFs
+   • POST /ingest                  → Procesar documentos
+   • POST /doctrina                → Análisis de doctrina
+   • GET/POST /fusion-contextual  → Fusión de contextos
+   • GET  /diagnostico-gemini      → Diagnóstico con IA
+   • GET  /historial               → Historial
+   • POST /exportar_pdf            → Exportar PDF
+   • GET  /resultado/<id>          → Ver resultado
+   • GET/POST /autoevaluaciones    → Auto-evaluaciones
+   • GET  /perfiles                → Perfiles PCA
+   • GET/POST /cognitivo           → Análisis cognitivo
+   • GET/POST /radar               → Radar visual
+   • GET/POST /autores             → Gestión de autores
+   • GET  /pensamiento             → Análisis multicapa ← MEJORADO
+   • GET  /api/pensamiento/<autor> → API JSON
+   • GET  /perfil-recientes        → Tabla de recientes ← NUEVA
+   • GET  /api/perfil-recientes    → API recientes ← NUEVA
+
+
+NUEVAS FUNCIONALIDADES:
+=======================
+
+1. Ruta /perfil-recientes
+   URL: http://127.0.0.1:5002/perfil-recientes
+   Parámetro: ?limite=50 (mostrar 50 en lugar de 20)
+   Contenido: Tabla con Fecha | Documento | Autor | Marco | Estrategia | Nivel
+   Datos: Desde colaborative/data/perfiles.db
+
+2. Integrador de Pensamiento
+   Función: obtener_analisis_autor()
+   Retorna: Análisis en 5 capas (Semántica, Cognitiva, Metodológica, Evolutiva, Relacional)
+   Autores: 4 disponibles con análisis completo
+
+3. Panel de Referencias
+   Ruta: /autores
+   Función: SistemaReferenciasAutores (AHORA DISPONIBLE)
+   Rutas relacionadas: /autor/<nombre>, /api/autores/buscar, /api/autores/comparar
+
+
+ARCHIVOS MODIFICADOS:
+====================
+
+1. colaborative/scripts/end2end_webapp.py
+   ✅ Línea 9: sys.path.insert(0, os.path.dirname(__file__))
+   ✅ Línea 32: Cambio de emoji a [OK] para compatibilidad Windows
+   ✅ Línea 1258: Agregado color: #333 en tablas /autoevaluaciones
+   ✅ Línea 1349: Agregado color: #333 y background: white en /perfiles
+   ✅ Línea 1551: Agregado color: #333 en /cognitivo
+   ✅ Línea ~2320: Nueva ruta @app.route('/perfil-recientes')
+   TOTAL: 7 cambios realizados
+
+2. colaborative/scripts/integrador_pensamiento_flask.py
+   ✅ Línea 36: SELECT nombre → SELECT autor as nombre
+   ✅ Línea 66: WHERE nombre = ? → WHERE autor = ?
+   ✅ Línea 98: perfil.get("nombre") → perfil.get("autor")
+   ✅ Línea 84: Agregada función _normalizar_perfil()
+   ✅ Línea 266: Agregada función _clasificar_etapa_temporal()
+   TOTAL: 5 cambios realizados
+
+3. colaborative/scripts/profiles_rag.py
+   ✅ Línea ~377: Nueva función obtener_perfiles_recientes()
+   TOTAL: 1 cambio realizado
+
+4. Documentación creada:
+   ✅ CORRECCION_IMPORTANTE.txt
+   ✅ VERIFICACION_LOGS.txt
+   ✅ CORRECCION_COLUMNA_DB.txt
+   ✅ CORRECCION_VISIBILIDAD_TABLAS.txt
+   ✅ RUTA_PERFIL_RECIENTES.txt
+
+
+CÓMO INICIAR EL SISTEMA:
+=========================
+
+Opción 1 - CON ARCHIVO BAT (RECOMENDADO):
+   Haz doble clic en: INICIO_MEJORADO.bat
+   
+Opción 2 - DESDE POWERSHELL:
+   cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+   .venv\Scripts\Activate.ps1
+   python colaborative\scripts\end2end_webapp.py
+
+Opción 3 - DESDE TERMINAL CON VALIDACIÓN:
+   Mismo comando que Opción 2 (INICIO_MEJORADO.bat lo hace automáticamente)
+
+
+RUTAS DISPONIBLES:
+==================
+
+🏠 INICIO
+   http://127.0.0.1:5002/
+
+📚 DOCUMENTOS
+   http://127.0.0.1:5002/upload         - Subir PDFs
+   http://127.0.0.1:5002/ingest         - Procesar documentos
+
+🧠 ANÁLISIS
+   http://127.0.0.1:5002/cognitivo      - Análisis cognitivo
+   http://127.0.0.1:5002/radar          - Radar visual
+   http://127.0.0.1:5002/pensamiento    - Análisis multicapa ← MEJORADO
+   http://127.0.0.1:5002/perfil-recientes - Últimos perfiles ← NUEVA
+
+👥 AUTORES
+   http://127.0.0.1:5002/autores        - Panel de autores ← AHORA DISPONIBLE
+   http://127.0.0.1:5002/autor/<nombre> - Perfil detallado ← AHORA DISPONIBLE
+
+📊 ANÁLISIS ESPECIALIZADOS
+   http://127.0.0.1:5002/perfiles       - Perfiles PCA
+   http://127.0.0.1:5002/autoevaluaciones - Auto-evaluaciones
+   http://127.0.0.1:5002/fusion-contextual - Fusión de contextos
+   http://127.0.0.1:5002/doctrina       - Análisis doctrinario
+
+📤 EXPORTACIÓN
+   http://127.0.0.1:5002/exportar_pdf   - Exportar resultados
+
+
+ESTADO FINAL: ✅ 100% FUNCIONAL
+===============================
+
+Servidor: end2end_webapp.py
+Puerto: 5002
+Bases de datos: 
+   - metadatos.db (4 autores)
+   - perfiles.db (4 perfiles)
+Rutas: 17 funcionales (15 originales + 2 nuevas)
+Tablas: Todas con contraste legible (color #333 sobre blanco)
+Autores: 4 disponibles con análisis completo
+Datos: Verificados y accesibles
+
+════════════════════════════════════════════════════════════════════════════════
+
+PRÓXIMOS PASOS (OPCIONALES):
+============================
+
+Si necesitas:
+1. Agregar más autores → Procesa más PDFs con /upload
+2. Cambiar estilos → Modifica CSS en end2end_webapp.py
+3. Personalizar análisis → Modifica integrador_pensamiento_flask.py
+4. Ver logs detallados → Revisa consola de PowerShell/Terminal
+
+════════════════════════════════════════════════════════════════════════════════

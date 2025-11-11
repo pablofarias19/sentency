@@ -1,0 +1,97 @@
+{
+  "_CONFIGURACION_GLOBAL": {
+    "_comentario": "Metadatos cognitivos jurídicos para análisis RAG",
+    "_version": "v2.2 - 2025-11-11",
+    "_integracion": "AnalizadorIntegralRAGConMetadatos",
+    "_nota_estructura": "Las claves raíz (excepto las que empiezan con _) deben ser nombres de archivo PDF exactos"
+  },
+
+  "_INSTRUCCIONES": {
+    "_formato": "Clave = nombre_archivo.pdf EXACTO",
+    "_campos_obligatorios": ["numero_expediente", "fecha_sentencia", "tribunal", "jurisdiccion", "materia"],
+    "_campos_opcionales": ["temas", "formas_razonamiento", "falacias", "citaciones", "ponderacion_manual", "analisis_sistema"],
+    "_citaciones_estructura": {
+      "doctrina": ["Autor, Obra"],
+      "jurisprudencia": ["Tribunal, Caso, Año"]
+    }
+  },
+
+  "Banco_Provincia_c_Laborda_Walter_Gaston.pdf": {
+    "numero_expediente": "C.280.892",
+    "fecha_sentencia": "2025-09-30",
+    "tribunal": "SCBA - Sala II",
+    "jurisdiccion": "Buenos Aires",
+    "materia": "Derecho Civil",
+    "caratula": "Banco Provincia c/ Laborda Walter Gastón s/ ejecución de sentencia",
+    "temas": ["acumulación de intereses", "abuso del derecho", "límite racional"],
+    "cuestiones_introductorias": ["¿Existe límite racional en la acumulación de intereses?"],
+    "formas_razonamiento": ["deductivo", "analógico"],
+    "falacias": [],
+    "citaciones": {
+      "doctrina": ["Borda, Obligaciones, T.II"],
+      "jurisprudencia": ["SCBA, 'Pérez c/ Provincia', 2021"]
+    },
+    "ponderacion_manual": {
+      "razonabilidad": 0.9,
+      "coherencia_argumentativa": 0.85,
+      "criterio_equitativo": 0.95
+    },
+    "analisis_sistema": {
+      "indice_razonamiento_juridico": 0.91,
+      "indice_integridad_argumental": 0.88,
+      "numero_falacias_detectadas": 1,
+      "tipo_argumento": "normativo",
+      "tipo_razonamiento": "deductivo",
+      "perfil_decisional": "prudencial"
+    },
+    "version_datos": "manual+auto",
+    "ultima_actualizacion": "2025-11-11",
+    "_ubicacion_archivo": "colaborative/pdfs_civil_general/"
+  },
+
+  "_EJEMPLO_MINIMO": {
+    "_comentario": "Plantilla con campos mínimos obligatorios",
+    "nombre_archivo.pdf": {
+      "numero_expediente": "EXP-12345",
+      "fecha_sentencia": "2025-11-11",
+      "tribunal": "Tribunal Superior",
+      "jurisdiccion": "Buenos Aires",
+      "materia": "Civil"
+    }
+  },
+
+  "_EJEMPLO_COMPLETO": {
+    "_comentario": "Plantilla con todos los campos disponibles",
+    "sentencia_completa.pdf": {
+      "numero_expediente": "C.123.456",
+      "fecha_sentencia": "2025-11-11",
+      "tribunal": "CSJN - Sala III",
+      "jurisdiccion": "CABA",
+      "materia": "Derecho Laboral",
+      "caratula": "Pérez Juan c/ Empresa SA s/ despido",
+      "temas": ["despido injustificado", "indemnización", "estabilidad laboral"],
+      "cuestiones_introductorias": ["¿Procede la reinstalación en caso de despido discriminatorio?"],
+      "formas_razonamiento": ["deductivo", "analógico", "teleológico"],
+      "falacias": ["ad hominem", "falsa dicotomía"],
+      "citaciones": {
+        "doctrina": ["Vázquez Vialard, Derecho del Trabajo", "Ackerman, Tratado de Derecho del Trabajo"],
+        "jurisprudencia": ["CSJN, 'Álvarez c/ Cencosud', 2010", "SCBA, 'Pérez c/ Provincia', 2015"]
+      },
+      "ponderacion_manual": {
+        "razonabilidad": 0.85,
+        "coherencia_argumentativa": 0.90,
+        "criterio_equitativo": 0.80
+      },
+      "analisis_sistema": {
+        "indice_razonamiento_juridico": 0.87,
+        "indice_integridad_argumental": 0.85,
+        "numero_falacias_detectadas": 2,
+        "tipo_argumento": "normativo",
+        "tipo_razonamiento": "deductivo",
+        "perfil_decisional": "garantista"
+      },
+      "version_datos": "manual+auto",
+      "ultima_actualizacion": "2025-11-11"
+    }
+  }
+}

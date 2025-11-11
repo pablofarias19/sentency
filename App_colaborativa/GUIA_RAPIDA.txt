@@ -1,0 +1,29 @@
+GUÍA DE USO RÁPIDO - RAG ENRIQUECIDO CON PCA
+
+🔧 CONFIGURACIÓN INICIAL:
+1. python setup_pca.py  (este archivo)
+2. Configurar .env con tu GOOGLE_API_KEY (opcional)
+3. Colocar PDFs en colaborative/data/pdfs/general/
+
+🚀 EJECUTAR SISTEMA:
+1. python colaborative/scripts/ingesta_enriquecida.py
+2. python colaborative/scripts/end2end_webapp.py
+3. Abrir: http://127.0.0.1:5002
+
+🎯 FUNCIONALIDADES:
+• Consultas doctrinarias con contexto cognitivo
+• Autoaprendizaje continuo basado en evaluaciones
+• Detección de marcos de referencia y estrategias
+• Búsqueda por "gemelos cognitivos" similares
+• Auditoría completa de procesos
+
+🔍 RUTAS PRINCIPALES:
+• /                    → Consultas doctrinarias
+• /autoevaluaciones    → Historial de aprendizaje
+• /refinamientos       → Historial de refinamientos
+
+💡 MEJORAS INCLUIDAS:
+1. Perfil Cognitivo-Autoral (PCA) en extracción
+2. Base vectorial paralela (FAISS_B) para perfiles
+3. Enriquecimiento de prompts con gemelos cognitivos
+4. Registro completo en sistema de autoaprendizaje

@@ -1,0 +1,76 @@
+🔧 SOLUCIÓN AL ERROR 429 - CUOTA GEMINI EXCEDIDA
+===============================================
+
+🚨 **PROBLEMA IDENTIFICADO:**
+Error 429: "You exceeded your current quota, please check your plan and billing details"
+
+📊 **ESTADO ACTUAL:**
+✅ Gemini configurado correctamente
+✅ 40+ modelos disponibles (gemini-2.5-pro, gemini-2.0-flash, etc.)
+❌ Cuota gratuita agotada (límite diario/por minuto alcanzado)
+
+🛠️ **SOLUCIONES IMPLEMENTADAS:**
+
+### 1️⃣ **FALLBACK AUTOMÁTICO**
+- ✅ Sistema detecta error 429 automáticamente
+- ✅ Proporciona fragmentos relevantes sin síntesis IA
+- ✅ Mantiene funcionalidad básica de búsqueda
+- ✅ Mensaje explicativo claro para el usuario
+
+### 2️⃣ **ALTERNATIVAS DISPONIBLES**
+- 🔄 **Modo Tradicional**: Usar "Análisis Tradicional" en lugar de fusión contextual
+- ⏰ **Esperar Restablecimiento**: Cuota se restablece automáticamente (57 minutos indicados)
+- 🔧 **Regenerar API Key**: Crear nueva clave en Google AI Studio
+
+### 3️⃣ **SOLUCIONES A LARGO PLAZO**
+
+**OPCIÓN A - Esperar Restablecimiento (GRATIS):**
+- La cuota se restablece cada 24 horas
+- Límites por minuto se restablecen cada minuto
+- Usar el sistema con moderación
+
+**OPCIÓN B - Cuenta de Pago (RECOMENDADO):**
+1. Ir a: https://console.cloud.google.com/
+2. Configurar método de pago
+3. Activar facturación para Gemini API
+4. Límites mucho más altos (miles de solicitudes/día)
+
+**OPCIÓN C - API Key Alternativa:**
+1. Crear nuevo proyecto en Google AI Studio
+2. Generar nueva API key
+3. Reemplazar GOOGLE_API_KEY actual
+
+### 4️⃣ **VERIFICAR CONFIGURACIÓN ACTUAL**
+
+```bash
+# Ejecutar diagnóstico
+python verificar_gemini.py
+
+# Ver estado de cuota
+# (Los límites se muestran en el error 429)
+```
+
+### 5️⃣ **CÓMO USAR MIENTRAS TANTO**
+
+**Opción Recomendada**: Usar "📊 Análisis Tradicional"
+- Funciona con modelos locales (Flan-T5)
+- No depende de APIs externas  
+- Genera resúmenes doctrinarios efectivos
+- Sistema de refinamiento incluido
+
+**Pasos:**
+1. Realizar búsqueda normal
+2. En resultados: seleccionar "📊 Análisis Tradicional"
+3. Obtener resumen doctrinario sin límites de API
+
+### 6️⃣ **MONITOREO DE CUOTA**
+
+Ir a: https://ai.dev/usage?tab=rate-limit
+- Ver uso actual de tokens
+- Verificar límites restantes
+- Planificar uso futuro
+
+🎯 **RECOMENDACIÓN INMEDIATA:**
+Usar el modo "Análisis Tradicional" que está completamente funcional y no depende de APIs externas con límites de cuota.
+
+✅ **SISTEMA COMPLETAMENTE OPERATIVO** con ambas opciones disponibles.

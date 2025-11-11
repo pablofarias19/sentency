@@ -1,0 +1,348 @@
+📋 GUÍA: ARCHIVO metadatos_sentencias.json - EXPLICACIÓN COMPLETA
+================================================================
+
+✅ **CONFIRMACIÓN:** Ya existe el archivo en tu sistema
+
+📂 **Ubicación:** 
+   `colaborative/data/pdfs/general/metadatos_sentencias.json`
+
+📊 **Estado Actual:**
+   - ✅ Archivo creado
+   - ✅ Estructura correcta implementada
+   - ✅ 1 sentencia de ejemplo registrada
+   - ✅ Listo para agregar más sentencias
+
+================================================================
+
+🎯 **¿QUÉ ES ESTE ARCHIVO?**
+
+Es un archivo de METADATOS donde describes cada sentencia judicial que quieras analizar.
+Proporciona información estructurada que el sistema usa para:
+- Identificar el fallo correctamente
+- Clasificar por tribunal, materia, fecha
+- Detectar tipos de razonamiento
+- Extraer citas doctrinarias y jurisprudenciales
+- Calcular métricas de calidad argumentativa
+
+================================================================
+
+📝 **ESTRUCTURA DETALLADA DEL JSON**
+
+Cada entrada tiene esta forma:
+
+```json
+{
+  "NOMBRE_ARCHIVO.pdf": {
+    "autor": "Nombre del juez o tribunal",
+    "tribunal": "Tribunal completo",
+    "jurisdiccion": "Nacional/Provincial",
+    "fecha_sentencia": "YYYY-MM-DD",
+    "caratula": "Carátula completa",
+    "numero_expediente": "N° expediente",
+    "materia": "Área del derecho",
+    "temas": ["tema1", "tema2", "tema3"],
+    "cuestiones_introductorias": ["pregunta1", "pregunta2"],
+    "formas_razonamiento": ["deductivo", "inductivo", "analógico"],
+    "tautologias": ["Ejemplo de tautología si existe"],
+    "falacias": ["Tipo de falacia si existe"],
+    "citaciones": {
+      "doctrina": ["Autor, Obra, Tomo"],
+      "jurisprudencia": ["Tribunal, 'Caso', Año"]
+    },
+    "calculos": {
+      "tipo_calculo": "Descripción",
+      "tasa": "Tipo de tasa",
+      "valor_unitario": 0.08
+    },
+    "ponderacion": {
+      "razonabilidad": 0.9,
+      "coherencia_argumentativa": 0.85,
+      "criterio_equitativo": 0.95
+    }
+  }
+}
+```
+
+================================================================
+
+📖 **DESCRIPCIÓN DE CADA CAMPO**
+
+### 🔑 CAMPOS OBLIGATORIOS (Mínimos):
+
+1. **"NOMBRE_ARCHIVO.pdf"**: Clave principal
+   - Debe coincidir EXACTAMENTE con el nombre del PDF
+   - Ejemplo: "Fallo_CSJN_2024_Daños.pdf"
+
+2. **"tribunal"**: Tribunal que emitió el fallo
+   - Ejemplo: "Corte Suprema de Justicia de la Nación"
+   - Ejemplo: "Cámara Nacional Civil, Sala A"
+
+3. **"fecha_sentencia"**: Fecha del fallo en formato ISO
+   - Formato: "YYYY-MM-DD"
+   - Ejemplo: "2024-11-15"
+
+4. **"materia"**: Área del derecho
+   - Ejemplos: "Civil", "Penal", "Laboral", "Comercial", "Administrativo"
+
+### ✨ CAMPOS OPCIONALES (Análisis Profundo):
+
+5. **"autor"**: Juez firmante o ponente
+   - Útil para análisis de estilo judicial individual
+   - Ejemplo: "Dr. Juan Carlos Maqueda"
+
+6. **"jurisdiccion"**: Ámbito territorial
+   - Ejemplos: "Nacional", "Buenos Aires", "Córdoba", "Ciudad Autónoma"
+
+7. **"caratula"**: Nombre completo del caso
+   - Ejemplo: "García, Juan c/ Estado Nacional s/ daños y perjuicios"
+
+8. **"numero_expediente"**: Identificador único
+   - Ejemplo: "C.280.892" o "FLP 12345/2024"
+
+9. **"temas"**: Array de temas jurídicos específicos
+   - Ejemplo: ["responsabilidad del estado", "nexo causal", "daño moral"]
+
+10. **"cuestiones_introductorias"**: Preguntas que plantea el caso
+    - Ejemplo: ["¿Existe responsabilidad objetiva?", "¿Cómo se prueba el daño?"]
+
+11. **"formas_razonamiento"**: Tipos detectados en la sentencia
+    - Opciones: "deductivo", "inductivo", "analógico", "teleológico", "a contrario"
+    - Ejemplo: ["deductivo", "analógico"]
+
+12. **"tautologias"**: Razonamientos circulares (si los hay)
+    - Ejemplo: ["Es ilícito porque está prohibido"]
+
+13. **"falacias"**: Errores lógicos detectados (si los hay)
+    - Opciones: "ad hominem", "non sequitur", "petitio principii", "falsa analogía"
+    - Ejemplo: ["non sequitur"]
+
+14. **"citaciones"**: Referencias utilizadas en el fallo
+    - **"doctrina"**: Autores y obras citadas
+      - Ejemplo: ["Borda, Obligaciones, T.II", "Llambías, Obligaciones, T.I"]
+    - **"jurisprudencia"**: Fallos previos citados
+      - Ejemplo: ["CSJN, 'Aquino', 2004", "SCBA, 'Pérez', 2021"]
+
+15. **"calculos"**: Si hay cálculos matemáticos (indemnizaciones, intereses)
+    - **"tipo_calculo"**: Qué se calcula
+    - **"tasa"**: Tipo de tasa aplicada
+    - **"valor_unitario"**: Valor numérico
+    - Ejemplo: {"tipo_calculo": "intereses moratorios", "tasa": "Tasa Pasiva BCRA", "valor_unitario": 0.08}
+
+16. **"ponderacion"**: Métricas de calidad argumentativa (0.0 a 1.0)
+    - **"razonabilidad"**: Lógica del razonamiento
+    - **"coherencia_argumentativa"**: Consistencia interna
+    - **"criterio_equitativo"**: Justicia del resultado
+    - Ejemplo: {"razonabilidad": 0.9, "coherencia_argumentativa": 0.85, "criterio_equitativo": 0.95}
+
+================================================================
+
+🎯 **VERSIÓN SIMPLIFICADA (Solo Campos Esenciales)**
+
+Si no quieres llenar todos los campos, usa esta versión mínima:
+
+```json
+{
+  "Tu_Sentencia.pdf": {
+    "tribunal": "Cámara Civil de Apelaciones",
+    "fecha_sentencia": "2024-11-11",
+    "materia": "Civil",
+    "temas": ["responsabilidad civil", "daños"]
+  }
+}
+```
+
+El sistema puede funcionar solo con esto y extraer el resto automáticamente del PDF.
+
+================================================================
+
+📝 **EJEMPLO PRÁCTICO: AGREGAR NUEVA SENTENCIA**
+
+Supongamos que tienes un fallo "Fallo_CSJN_Kelsen_2024.pdf"
+
+**Paso 1:** Abrir el archivo JSON
+```powershell
+notepad colaborative\data\pdfs\general\metadatos_sentencias.json
+```
+
+**Paso 2:** Agregar la nueva entrada (respetando la estructura JSON)
+```json
+{
+  "Fallo_Laborda_vs_BancoProvincia.pdf": {
+    ... contenido existente ...
+  },
+  "Fallo_CSJN_Kelsen_2024.pdf": {
+    "tribunal": "Corte Suprema de Justicia de la Nación",
+    "fecha_sentencia": "2024-05-20",
+    "materia": "Constitucional",
+    "temas": ["teoría pura del derecho", "separación de poderes"],
+    "formas_razonamiento": ["deductivo", "sistemático"]
+  }
+}
+```
+
+**Paso 3:** Guardar el archivo (asegurarse de que el JSON esté bien formado)
+
+**Paso 4:** Verificar sintaxis
+```powershell
+python -c "import json; json.load(open('colaborative/data/pdfs/general/metadatos_sentencias.json', encoding='utf-8')); print('✅ JSON válido')"
+```
+
+================================================================
+
+⚠️ **ERRORES COMUNES A EVITAR**
+
+1. ❌ **Falta de coma entre entradas**
+   ```json
+   {
+     "sentencia1.pdf": {...}   ← FALTA COMA AQUÍ
+     "sentencia2.pdf": {...}
+   }
+   ```
+   ✅ Correcto:
+   ```json
+   {
+     "sentencia1.pdf": {...},  ← CON COMA
+     "sentencia2.pdf": {...}
+   }
+   ```
+
+2. ❌ **Nombre de archivo no coincide**
+   - JSON: "Fallo_Kelsen.pdf"
+   - Archivo real: "fallo_kelsen.pdf"
+   - ⚠️ Son DIFERENTES (mayúsculas/minúsculas importan)
+
+3. ❌ **Formato de fecha incorrecto**
+   - ❌ "30/09/2024"
+   - ❌ "Sept 30, 2024"
+   - ✅ "2024-09-30"
+
+4. ❌ **Valores numéricos como strings**
+   - ❌ "razonabilidad": "0.9"
+   - ✅ "razonabilidad": 0.9
+
+5. ❌ **Arrays sin corchetes**
+   - ❌ "temas": "tema1, tema2"
+   - ✅ "temas": ["tema1", "tema2"]
+
+================================================================
+
+🔍 **VALIDACIÓN DEL ARCHIVO**
+
+**Script de validación automática:**
+
+```powershell
+python -c "
+import json
+from pathlib import Path
+
+# Cargar JSON
+json_path = Path('colaborative/data/pdfs/general/metadatos_sentencias.json')
+data = json.load(open(json_path, encoding='utf-8'))
+
+print(f'✅ JSON válido con {len(data)} sentencias\n')
+
+# Verificar que cada PDF existe
+pdf_dir = Path('colaborative/data/pdfs/sentencias_pdf')
+txt_dir = Path('colaborative/data/pdfs/sentencias_texto')
+
+for pdf_name in data.keys():
+    pdf_exists = (pdf_dir / pdf_name).exists()
+    txt_name = pdf_name.replace('.pdf', '.txt')
+    txt_exists = (txt_dir / txt_name).exists()
+    
+    status = '✅' if (pdf_exists or txt_exists) else '❌'
+    print(f'{status} {pdf_name}')
+    if not pdf_exists and not txt_exists:
+        print(f'   ⚠️  Archivo no encontrado en sentencias_pdf/ ni sentencias_texto/')
+
+print('\n✅ Validación completa')
+"
+```
+
+================================================================
+
+🚀 **FLUJO COMPLETO DE USO**
+
+### Opción A: Con metadatos completos (RECOMENDADO)
+
+1. Copiar PDF → `colaborative/data/pdfs/sentencias_pdf/Mi_Fallo.pdf`
+2. Editar JSON → Agregar entrada con metadatos de "Mi_Fallo.pdf"
+3. Ejecutar procesamiento:
+   ```
+   python colaborative/scripts/centro_control_maestro.py
+   → Opción S → S1 (Ingestar corpus)
+   ```
+4. Sistema lee JSON, extrae PDF, analiza con contexto de metadatos
+
+### Opción B: Sin metadatos (automático)
+
+1. Copiar PDF → `colaborative/data/pdfs/sentencias_pdf/Mi_Fallo.pdf`
+2. **NO agregar al JSON** (dejarlo sin entrada)
+3. Ejecutar procesamiento (igual que opción A)
+4. Sistema extrae PDF pero sin metadatos estructurados
+5. **Limitación:** Análisis menos preciso
+
+================================================================
+
+💡 **RECOMENDACIONES**
+
+**Mejor práctica:**
+- Llenar al menos: tribunal, fecha_sentencia, materia, temas
+- Los demás campos son útiles pero opcionales
+- El sistema puede inferir algunos datos del texto del PDF
+
+**Para análisis rápido:**
+```json
+{
+  "Mi_Fallo.pdf": {
+    "tribunal": "Cámara Civil",
+    "fecha_sentencia": "2024-11-11",
+    "materia": "Civil"
+  }
+}
+```
+
+**Para análisis completo:**
+```json
+{
+  "Mi_Fallo.pdf": {
+    "tribunal": "Cámara Nacional Civil, Sala A",
+    "fecha_sentencia": "2024-11-11",
+    "materia": "Civil - Responsabilidad",
+    "temas": ["nexo causal", "daño moral", "cuantificación"],
+    "formas_razonamiento": ["deductivo", "analógico"],
+    "citaciones": {
+      "doctrina": ["Zavala de González, Resarcimiento de Daños"],
+      "jurisprudencia": ["CSJN, 'Aquino', 2004"]
+    }
+  }
+}
+```
+
+================================================================
+
+✅ **RESUMEN EJECUTIVO**
+
+1. **El archivo YA EXISTE** en tu sistema con la estructura correcta
+2. **Tiene 1 sentencia de ejemplo** que puedes usar como plantilla
+3. **Para agregar más sentencias:**
+   - Edita el JSON agregando nuevas entradas
+   - Respeta la estructura mostrada arriba
+   - Valida el JSON antes de procesar
+4. **Campos mínimos:** tribunal, fecha_sentencia, materia
+5. **Campos opcionales:** Todo lo demás (el sistema infiere lo que puede)
+
+================================================================
+
+📚 **ARCHIVOS RELACIONADOS**
+
+- **Este JSON:** Metadatos estructurados de sentencias
+- **DONDE_AGREGAR_SENTENCIAS.txt:** Guía de directorios
+- **VERIFICACION_SISTEMA_SENTENCIAS.txt:** Auditoría técnica
+- **README en sentencias_texto/**: Instrucciones de formato TXT
+- **README en sentencias_pdf/**: Instrucciones de formato PDF
+
+================================================================
+
+Fecha de actualización: 11 de noviembre de 2025
+Sistema: RAG Cognitivo v7.8 - Módulo de Sentencias Judiciales

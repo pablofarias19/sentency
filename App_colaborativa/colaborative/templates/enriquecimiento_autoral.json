@@ -1,0 +1,60 @@
+{
+  "enriquecimiento_autoral": {
+    "perfil_cognitivo": {
+      "dimension_argumentativa": {
+        "ethos_nivel": 0.0,
+        "pathos_nivel": 0.0,
+        "logos_nivel": 0.0,
+        "ethos_contexto": "",
+        "pathos_contexto": "",
+        "logos_contexto": ""
+      },
+      "estilo_narrativo": {
+        "formalidad": 0.0,
+        "tecnicismo": 0.0,
+        "claridad": 0.0,
+        "concision": 0.0,
+        "precision_conceptual": 0.0
+      },
+      "estructura_discursiva": {
+        "coherencia_global": 0.0,
+        "cohesion_textual": 0.0,
+        "progresion_tematica": 0.0,
+        "organizacion_ideas": 0.0
+      },
+      "recursos_linguisticos": {
+        "variedad_lexica": 0.0,
+        "complejidad_sintactica": 0.0,
+        "uso_conectores": 0.0,
+        "marcadores_discursivos": 0.0
+      }
+    },
+    "analisis_contextual": {
+      "contexto_judicial": {
+        "adaptacion_audiencia": 0.0,
+        "manejo_precedentes": 0.0,
+        "uso_jurisprudencia": 0.0,
+        "aplicacion_normativa": 0.0
+      },
+      "coherencia_argumentativa": {
+        "solidez_premisas": 0.0,
+        "validez_inferencias": 0.0,
+        "consistencia_interna": 0.0,
+        "respaldo_evidencial": 0.0
+      }
+    },
+    "indicadores_autoria": {
+      "originalidad": 0.0,
+      "profundidad_analisis": 0.0,
+      "innovacion_juridica": 0.0,
+      "contribucion_doctrinal": 0.0
+    },
+    "metadatos_procesamiento": {
+      "fecha_analisis": "",
+      "version_algoritmo": "7.3",
+      "confianza_analisis": 0.0,
+      "archivos_referencia": [],
+      "observaciones": ""
+    }
+  }
+}

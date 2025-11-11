@@ -1,0 +1,48 @@
+🎬 INICIO INMEDIATO - COPIA Y PEGA
+==================================
+
+PASO 1: Copia esto en PowerShell
+
+cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+
+PASO 2: Ejecuta esto
+
+.venv\Scripts\Activate.ps1
+
+PASO 3: Ejecuta esto
+
+python servidor_flask_simplificado.py
+
+PASO 4: Se abrirá una ventana que dice:
+
+    ════════════════════════════════════════════════════════
+    🚀 SERVIDOR FLASK - ANÁLISIS MULTICAPA
+    ════════════════════════════════════════════════════════
+
+    ✅ Rutas disponibles:
+       🌐 http://127.0.0.1:5002/
+       📊 http://127.0.0.1:5002/pensamiento
+       👥 http://127.0.0.1:5002/api/autores
+       📈 http://127.0.0.1:5002/api/pensamiento/<autor>
+
+    ════════════════════════════════════════════════════════
+
+PASO 5: Abre tu navegador y ve a
+
+http://127.0.0.1:5002/pensamiento
+
+════════════════════════════════════════════════════════════════════════════════
+
+✅ LISTO
+
+Deberías ver un panel interactivo con:
+
+• Selector de autores (4 disponibles)
+• Estadísticas: 4 Autores, 233,792 Palabras
+• 5 Capas de análisis (Semántica, Cognitiva, Metodológica, Evolutiva, Relacional)
+
+════════════════════════════════════════════════════════════════════════════════
+
+Si algo no funciona, lee: INICIO_SISTEMA.txt
+
+════════════════════════════════════════════════════════════════════════════════

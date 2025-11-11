@@ -1,0 +1,76 @@
+✅ CORRECCIÓN COMPLETADA - ERROR DE COLUMNA EN BASE DE DATOS
+==============================================================
+
+PROBLEMA:
+---------
+❌ Error: "no such column: nombre"
+   El integrador estaba buscando una columna llamada "nombre" en la tabla
+   perfiles_cognitivos, pero la columna se llamaba "autor"
+
+CAUSA RAÍZ:
+-----------
+• Tabla perfiles_cognitivos tiene columna: "autor" (no "nombre")
+• Integrador estaba usando SELECT nombre FROM perfiles_cognitivos
+• Esto causaba falla al obtener autores
+
+CORRECCIONES REALIZADAS:
+------------------------
+
+1. ✅ Columna en obtener_autores_disponibles()
+   • Cambio: SELECT nombre → SELECT autor as nombre
+   • Línea: ~36
+   • Agregado: GROUP BY autor para evitar duplicados
+
+2. ✅ Columna en obtener_analisis_autor()
+   • Cambio: WHERE nombre = ? → WHERE autor = ?
+   • Línea: ~66
+
+3. ✅ Referencia en _generar_analisis_multicapa()
+   • Cambio: perfil.get("nombre") → perfil.get("autor")
+   • Línea: ~98
+
+4. ✅ Método faltante _clasificar_etapa_temporal()
+   • Agregado: Completa clasificación de etapa temporal
+   • Retorna: "Pensamiento contemporáneo avanzado" | "Pensamiento moderno consolidado" | "Pensamiento tradicional"
+
+5. ✅ Normalización de valores None
+   • Agregado: Método _normalizar_perfil() que convierte None → 0
+   • Previene: Errores de comparación '>' entre NoneType y float
+   • Aplica a: Todas las métricas numéricas
+
+ESTADO ACTUAL:
+--------------
+✅ Integrador carga correctamente 4 autores:
+   - CARLOS PANDIELLA MOLINA (51,213 palabras)
+   - Citlalli (57,621 palabras)
+   - DANIEL ESTEBAN BROLA (121,801 palabras)
+   - Noelia Malvina Cofrè (3,157 palabras)
+
+✅ Análisis multicapa genera sin errores
+
+✅ Servidor end2end_webapp.py levanta correctamente
+
+VERIFICACIÓN:
+-------------
+Test ejecutado: python test_integrador_corregido.py
+Resultado: ✅ Todos los autores cargados correctamente
+           ✅ Análisis multícapa genera exitosamente
+
+PRÓXIMO PASO:
+-----------
+El servidor está listo para usar con:
+
+    INICIO_MEJORADO.bat
+    
+o directamente:
+
+    python colaborative\scripts\end2end_webapp.py
+
+Acceder a: http://127.0.0.1:5002/pensamiento
+
+════════════════════════════════════════════════════════════════════════════════
+
+ARCHIVOS MODIFICADOS:
+    • colaborative/scripts/integrador_pensamiento_flask.py
+
+ERROR RESUELTO: ✅ "no such column: nombre"

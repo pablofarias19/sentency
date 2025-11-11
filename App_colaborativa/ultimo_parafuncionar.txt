@@ -1,0 +1,9 @@
+PARA USAR EL SISTEMA:
+
+Agregar más PDFs: Colócalos en general
+
+Procesar: python procesar_todo.py (ya no necesitas recordar múltiples comandos)
+
+Usar: iniciar_sistema.bat o python colaborative\scripts\end2end_webapp.py
+
+El sistema está completamente operativo y unificado. ¡Gracias por señalar la ruta correcta!

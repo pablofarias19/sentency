@@ -1,0 +1,210 @@
+═══════════════════════════════════════════════════════════════════════
+🎯 ACTUALIZACIÓN: TEMÁTICAS Y OBJETIVOS EN BASE RAG
+═══════════════════════════════════════════════════════════════════════
+Fecha: 11 de noviembre de 2025
+
+═══════════════════════════════════════════════════════════════════════
+📊 PROBLEMA RESUELTO
+═══════════════════════════════════════════════════════════════════════
+
+ANTES:
+❌ La base RAG NO capturaba el objetivo central de las obras
+❌ NO se identificaban las temáticas principales tratadas
+❌ NO había resumen ejecutivo de qué trata cada documento
+❌ Los informes carecían de contexto sobre el propósito de la obra
+
+AHORA:
+✅ 4 nuevas columnas agregadas a metadatos.db
+✅ Extractor automático de objetivos y temáticas
+✅ Análisis inteligente usando patrones lingüísticos
+✅ Integración completa en informes de Gemini
+
+═══════════════════════════════════════════════════════════════════════
+📋 NUEVAS COLUMNAS AGREGADAS
+═══════════════════════════════════════════════════════════════════════
+
+1. **objetivo_central** (TEXT)
+   - Detecta automáticamente el objetivo/propósito de la obra
+   - Busca patrones como "el objetivo es", "nos proponemos", etc.
+   - Si no encuentra explícito, lo infiere del título y contenido
+
+2. **tematicas_principales** (TEXT - JSON array)
+   - Lista de 3-5 temáticas principales tratadas
+   - Extrae de:
+     * Títulos de capítulos y secciones
+     * Frecuencia de términos jurídicos especializados
+     * Áreas temáticas identificadas (procesal, civil, etc.)
+
+3. **palabras_tema** (TEXT - JSON array)
+   - Top 30 palabras temáticas más frecuentes
+   - Filtradas de stopwords comunes
+   - Representan el vocabulario especializado del autor
+
+4. **resumen_ejecutivo** (TEXT)
+   - Síntesis de 2-3 oraciones sobre el contenido
+   - Combina objetivo + temáticas + primeras oraciones significativas
+   - Máximo 500 caracteres
+
+═══════════════════════════════════════════════════════════════════════
+🔍 CÓMO FUNCIONA EL EXTRACTOR
+═══════════════════════════════════════════════════════════════════════
+
+**Clase: ExtractorTematicasObjetivos**
+
+1. DETECCIÓN DE OBJETIVOS:
+   - Busca patrones lingüísticos en las primeras 5000 caracteres:
+     * "el objetivo/propósito/fin de este trabajo es..."
+     * "nos proponemos..."
+     * "este trabajo busca/pretende/intenta..."
+     * "tiene como objetivo..."
+   - Si no encuentra explícito, infiere del título
+
+2. DETECCIÓN DE TEMÁTICAS:
+   - Extrae títulos de capítulos con regex patterns
+   - Identifica áreas jurídicas por frecuencia de términos:
+     * Procesal (proceso, tutela, medida cautelar...)
+     * Civil (contrato, responsabilidad, daño...)
+     * Constitucional (derechos fundamentales, garantías...)
+     * Penal, Administrativo, Comercial, Laboral
+   - Retorna top 5 temáticas más relevantes
+
+3. PALABRAS TEMA:
+   - Extrae palabras de 4+ caracteres
+   - Filtra stopwords (el, la, de, que, etc.)
+   - Cuenta frecuencias y retorna top 30
+
+4. RESUMEN EJECUTIVO:
+   - Extrae primeras 2 oraciones significativas (50-300 chars)
+   - O combina: "La obra tiene como objetivo [X]. Aborda [temas]."
+
+═══════════════════════════════════════════════════════════════════════
+📂 ARCHIVOS CREADOS/MODIFICADOS
+═══════════════════════════════════════════════════════════════════════
+
+1. **agregar_tematicas_objetivos.py** (NUEVO - 300+ líneas)
+   - Script principal de extracción
+   - Clase ExtractorTematicasObjetivos
+   - Funciones:
+     * agregar_columnas_bd() - Altera tabla SQL
+     * actualizar_documentos_existentes() - Procesa todos los PDFs
+     * detectar_objetivo_central()
+     * detectar_tematicas_principales()
+     * extraer_palabras_tema()
+     * generar_resumen_ejecutivo()
+
+2. **generador_informes_gemini.py** (MODIFICADO)
+   - Agregada sección en prompt (líneas ~490-530):
+     * Muestra objetivo central de la obra
+     * Lista temáticas principales (top 5)
+     * Incluye resumen ejecutivo
+   - Instrucción explícita a Gemini:
+     "El objetivo central y las temáticas son EL CORAZÓN de la obra.
+      Debes mencionarlos y relacionarlos con las métricas cognitivas."
+
+3. **metadatos.db** (MODIFICADO)
+   - Tabla perfiles_cognitivos ahora tiene 55 columnas (antes 51)
+   - Las 9 obras existentes ya fueron procesadas y actualizadas
+
+═══════════════════════════════════════════════════════════════════════
+🚀 CÓMO USAR
+═══════════════════════════════════════════════════════════════════════
+
+**PARA DOCUMENTOS NUEVOS:**
+El sistema procesará automáticamente estas columnas cuando ejecutes:
+```powershell
+python procesar_todo.py
+```
+
+**PARA ACTUALIZAR DOCUMENTOS EXISTENTES:**
+```powershell
+python colaborative/scripts/agregar_tematicas_objetivos.py
+```
+
+**PARA GENERAR INFORME CON NUEVOS DATOS:**
+```powershell
+$env:PYTHONIOENCODING="utf-8"
+python colaborative/scripts/generador_informes_gemini.py "NOMBRE AUTOR"
+```
+
+O desde la web: botón "🤖 Informe Gemini"
+
+**PARA CONSULTAR DATOS EXTRAÍDOS:**
+```powershell
+python -c "import sqlite3, json; conn=sqlite3.connect('colaborative/bases_rag/cognitiva/metadatos.db'); c=conn.cursor(); c.execute('SELECT autor, objetivo_central, tematicas_principales FROM perfiles_cognitivos'); [print(f'{r[0]}:\nObjetivo: {r[1]}\nTemas: {r[2]}\n') for r in c.fetchall()]"
+```
+
+═══════════════════════════════════════════════════════════════════════
+📊 RESULTADOS ACTUALES
+═══════════════════════════════════════════════════════════════════════
+
+✅ 9 documentos procesados exitosamente:
+   1. Noelia Malvina Cofrè - Amparos en Salud y Discapacidad
+   2. Citlalli - ABC de Recursos e Incidentes en Amparo
+   3. Daniel Esteban Brola - Teoría y Práctica del Amparo
+   4. Carlos Pandiella Molina - Tutela Preventiva
+   5. Ariel Ariza - Comodato
+   6. Eduardo Barreira Delfino - Contratos de Leasing
+   7. Leonardo Nahuel Manfredi - Contratos de Servicios
+   8. Luciana B. Scotti - Contratos Electrónicos
+   9. Carolina Iud - Contratos Internacionales
+
+Cada uno ahora tiene:
+- Objetivo central identificado
+- 3-5 temáticas principales
+- 30 palabras temáticas clave
+- Resumen ejecutivo
+
+═══════════════════════════════════════════════════════════════════════
+💡 IMPACTO EN LOS INFORMES
+═══════════════════════════════════════════════════════════════════════
+
+ANTES:
+"El autor presenta alto formalismo jurídico (0.85)..."
+→ Abstracto, sin contexto
+
+AHORA:
+"El autor presenta alto formalismo jurídico (0.85) orientado específicamente
+a su objetivo de 'analizar la tutela preventiva en el derecho argentino'.
+Este enfoque formal es coherente con las temáticas tratadas: Tutela Preventiva,
+Derecho Procesal, y Medidas Cautelares, donde la precisión normativa es crucial..."
+→ Concreto, contextualizado, con propósito claro
+
+═══════════════════════════════════════════════════════════════════════
+⚠️ MEJORAS FUTURAS POSIBLES
+═══════════════════════════════════════════════════════════════════════
+
+1. **Mejorar detección de objetivos:**
+   - Usar análisis semántico (embeddings)
+   - Entrenar modelo específico para textos jurídicos
+
+2. **Clasificación temática más sofisticada:**
+   - Taxonomía jurídica completa (no solo 7 áreas)
+   - Detección de sub-temáticas (ej: dentro de Civil → Contratos → Leasing)
+
+3. **Integración con procesamiento automático:**
+   - Llamar extractor desde procesar_todo.py
+   - Actualizar automáticamente cuando se agregan PDFs
+
+4. **Visualización en la web:**
+   - Mostrar objetivo y temáticas en tarjetas de autores
+   - Filtrar autores por temática
+   - Nube de palabras temáticas
+
+═══════════════════════════════════════════════════════════════════════
+✅ RESUMEN EJECUTIVO
+═══════════════════════════════════════════════════════════════════════
+
+La base RAG ahora captura y almacena:
+✅ El propósito/objetivo central de cada obra
+✅ Las 3-5 temáticas principales tratadas
+✅ Vocabulario temático especializado (top 30 palabras)
+✅ Resumen ejecutivo de 2-3 oraciones
+
+Esto permite que Gemini genere informes:
+✅ MÁS CONTEXTUALIZADOS - Sabe de qué trata la obra
+✅ MÁS RELEVANTES - Relaciona métricas con el objetivo específico
+✅ MÁS COMPLETOS - Menciona explícitamente las temáticas tratadas
+✅ MÁS ÚTILES - El lector entiende inmediatamente el alcance de la obra
+
+Los informes ya no son abstracciones vacías, sino análisis fundamentados
+que sitúan al autor y su obra en un contexto temático específico.

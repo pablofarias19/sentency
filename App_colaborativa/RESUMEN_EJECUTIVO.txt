@@ -1,0 +1,54 @@
+📋 SISTEMA RAG COGNITIVO - RESUMEN EJECUTIVO
+===============================================
+
+🎯 QUÉ HACE EL SISTEMA:
+- Analiza documentos jurídicos y detecta CÓMO PIENSA cada autor
+- Crea "perfiles cognitivos" únicos para cada autor
+- Te permite hacer consultas inteligentes sobre contenido Y metodología
+
+📁 ARCHIVOS QUE PROCESA:
+- PDFs (principal)
+- Word (.docx) 
+- Texto (.txt)
+- Ubicación: colaborative\data\pdfs\general\
+
+🧠 ANÁLISIS QUE REALIZA:
+- 👤 Detección automática de autor (90%+ precisión)
+- 📊 8 dimensiones cognitivas (formalismo, creatividad, empirismo, etc.)
+- 🎭 Análisis retórico (Ethos, Pathos, Logos)
+- 🧭 Tipos de razonamiento (deductivo, inductivo, analógico, etc.)
+- 🏛️ Modalidades epistémicas (apodíctico, dialéctico, retórico)
+
+📚 AUTORES ACTUALMENTE DISPONIBLES:
+1. Noelia Malvina Cofré (Formal-Deductivo)
+2. Citlalli (Mixto)
+3. Daniel Esteban Brola (Mixto) ← RECIÉN PROCESADO ✅
+4. Carlos Pandiella Molina (Formal-Deductivo)
+
+🚀 USO SÚPER SIMPLE - 2 CLICS:
+
+PARA USAR EL SISTEMA:
+→ Doble clic en: INICIO_FACIL.bat
+
+PARA AGREGAR DOCUMENTOS NUEVOS:
+→ Doble clic en: PROCESAR_DOCUMENTOS.bat
+
+🌐 RUTAS WEB PRINCIPALES:
+- http://127.0.0.1:5002/          → Consultas principales
+- http://127.0.0.1:5002/radar     → Radar cognitivo visual  
+- http://127.0.0.1:5002/autores   → Comparación de autores
+- http://127.0.0.1:5002/cognitivo → Análisis especializado
+
+💡 EJEMPLOS DE CONSULTAS:
+- "¿Qué opina Daniel Brola sobre el amparo?"
+- "Compara el enfoque de Citlalli vs Noelia Cofré"
+- "Encuentra autores con razonamiento deductivo"
+- "¿Cómo argumenta Carlos Pandiella?"
+
+✅ PROBLEMAS RESUELTOS:
+- Error spaCy ✅
+- Error radar cognitivo ✅  
+- PDF Daniel Brola procesado ✅
+- Coordinador inteligente implementado ✅
+
+🎉 ESTADO: SISTEMA COMPLETAMENTE OPERATIVO

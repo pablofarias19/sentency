@@ -1,0 +1,22 @@
+# Dependencias adicionales para RAG Sentencias v7.4
+# Para instalar: pip install -r requirements_rag_v74.txt
+
+# FAISS y embeddings
+faiss-cpu>=1.7.4
+sentence-transformers>=2.7.0
+
+# Procesamiento de datos
+pandas>=2.2
+numpy>=1.26
+rapidfuzz>=3.9
+tqdm>=4.66
+
+# API y web
+flask>=3.0
+
+# Extracción de texto PDF
+pdfminer.six>=20240706
+
+# Visualización (opcional)
+matplotlib>=3.5
+seaborn>=0.11

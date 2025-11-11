@@ -1,0 +1,131 @@
+📖 REFERENCIA RÁPIDA - COMANDOS CLAVE
+====================================
+
+CARPETA: c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 OPCIÓN 1: INICIADOR INTERACTIVO (LO MÁS FÁCIL)
+──────────────────────────────────────────────────
+
+$ python iniciar_sistema.py
+
+Te mostrará un menú con 5 opciones para elegir
+
+════════════════════════════════════════════════════════════════════════════════
+
+🚀 OPCIÓN 2: COMANDO DIRECTO (RECOMENDADO)
+───────────────────────────────────────────
+
+$ python servidor_flask_simplificado.py
+
+Luego: http://127.0.0.1:5002/pensamiento
+
+════════════════════════════════════════════════════════════════════════════════
+
+📊 OPCIÓN 3: HTML ESTÁTICO
+──────────────────────────
+
+$ python servidor_http_simple.py
+
+Luego: http://127.0.0.1:8888/biblioteca_multicapa.html
+
+════════════════════════════════════════════════════════════════════════════════
+
+🔧 VERIFICACIONES
+─────────────────
+
+Verificar BDs:
+$ python verificar_bd_v2.py
+
+Probar integrador:
+$ python test_integrador.py
+
+Listar archivos clave:
+$ ls integrador_pensamiento_flask.py servidor_flask_simplificado.py
+
+════════════════════════════════════════════════════════════════════════════════
+
+⚡ SECUENCIA COMPLETA DE INICIO:
+
+1. Abre PowerShell
+2. cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+3. .venv\Scripts\Activate.ps1
+4. python servidor_flask_simplificado.py
+5. Abre navegador: http://127.0.0.1:5002/pensamiento
+
+LISTO! ✅
+
+════════════════════════════════════════════════════════════════════════════════
+
+📋 ESTADO DEL SISTEMA:
+
+✅ Datos: 4 autores, 233,792 palabras
+✅ Capas: Semántica, Cognitiva, Metodológica, Evolutiva, Relacional
+✅ API JSON: /api/autores, /api/pensamiento/<autor>
+✅ HTML: Interactivo con selector de autores
+
+════════════════════════════════════════════════════════════════════════════════
+
+🌐 ACCESOS DISPONIBLES DESPUÉS DE INICIAR:
+
+Con OPCIÓN 2 (servidor_flask_simplificado.py):
+  • http://127.0.0.1:5002/                    → Página inicio
+  • http://127.0.0.1:5002/pensamiento         → Panel principal
+  • http://127.0.0.1:5002/api/autores         → JSON de autores
+  • http://127.0.0.1:5002/api/pensamiento/<autor> → JSON análisis
+
+Con OPCIÓN 3 (servidor_http_simple.py):
+  • http://127.0.0.1:8888/                    → Página inicio
+  • http://127.0.0.1:8888/biblioteca_multicapa.html → Panel
+
+════════════════════════════════════════════════════════════════════════════════
+
+❌ SI TIENES PROBLEMAS:
+
+Puerto en uso:
+  • Cambia puerto en servidor_flask_simplificado.py (línea ~120)
+  • O detén otros procesos: taskkill /F /IM python.exe
+
+Módulo no encontrado (ModuleNotFoundError):
+  • Instala: pip install flask
+  • O dentro del venv: .venv\Scripts\pip.exe install flask
+
+Entorno virtual no activado:
+  • Ejecuta: .venv\Scripts\Activate.ps1
+  • Deberías ver: (.venv) PS ...
+
+BD vacía:
+  • Ejecuta: python verificar_bd_v2.py
+  • Debe mostrar 4 autores en metadatos.db
+
+════════════════════════════════════════════════════════════════════════════════
+
+💡 TIPS ÚTILES:
+
+• Abre 2 terminales para tener ambos puertos (5002 y 8888) simultáneamente
+• Usa Ctrl+C para detener un servidor
+• Para API JSON, usa curl o Postman
+• Recarga el navegador (F5) si no ves cambios
+
+════════════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTACIÓN:
+
+• INICIO_RAPIDO.txt          → Guía de opciones disponibles
+• RESPUESTA_A_TU_PREGUNTA.txt → Explicación del problema
+• GUIA_PASO_A_PASO.txt       → Instrucciones detalladas
+• ANALISIS_DISCREPANCIA_DATOS.md → Análisis técnico
+• RESUMEN_SOLUCION.md        → Resumen ejecutivo
+
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 RESUMEN PARA EMPEZAR AHORA:
+
+python servidor_flask_simplificado.py
+
+http://127.0.0.1:5002/pensamiento
+
+DONE! ✅
+
+════════════════════════════════════════════════════════════════════════════════

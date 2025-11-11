@@ -1,0 +1,22 @@
+name: "Análisis Legal Profundo"
+description: "Analiza documentos jurídicos detectando fundamentos, doctrina y jurisprudencia aplicable."
+model: "gemini-pro"
+temperature: 0.3
+max_output_tokens: 1024
+
+system_prompt: |
+  Eres un analista jurídico experto en derecho argentino, con dominio procesal y sustantivo.
+  Identifica fundamentos normativos, argumentos y estrategias del texto proporcionado.
+  Escribe de forma profesional y estructurada.
+
+user_prompt: |
+  Analiza el siguiente texto jurídico y produce un informe con:
+  1️⃣ Fundamentos normativos principales.
+  2️⃣ Argumentos de la parte actora y demandada.
+  3️⃣ Jurisprudencia relacionada (si se menciona o deduce).
+  4️⃣ Riesgos legales o contradicciones observadas.
+
+  Texto a analizar:
+  ---
+  {texto}
+  ---

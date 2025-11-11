@@ -1,0 +1,301 @@
+SISTEMA RAG ENRIQUECIDO CON PERFILES COGNITIVO-AUTORALES (PCA)
+================================================================
+
+🔧 CONFIGURACIÓN INICIAL (ejecutar una sola vez):
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+
+# Instalar dependencias y configurar sistema
+python setup_pca.py
+
+# Si ya tienes los modelos base instalados (opcional):
+python download_models.py
+
+🚀 USAR SISTEMA ENRIQUECIDO:
+1. Activar entorno virtual:
+   .venv\Scripts\Activate.ps1
+
+2. Configurar API de Gemini (opcional pero recomendado):
+   - Copia .env.example a .env
+   - Añade tu GOOGLE_API_KEY=tu_clave_aqui
+
+3. INGESTA ENRIQUECIDA (nueva funcionalidad):
+   - Coloca PDFs en: C:\Users\USUARIO\Programacion\modelos\App_colaborativa\colaborative\data\pdfs\general\
+   - Ejecuta: python colaborative/scripts/ingesta_enriquecida.py
+   
+4. Iniciar webapp (con apertura automática de navegador):
+   python colaborative/scripts/end2end_webapp.py
+   
+   O usar script de inicio automático:
+   - Windows: .\iniciar_sistema.bat
+   - PowerShell: .\iniciar_sistema.ps1
+   
+5. El navegador se abrirá automáticamente en:
+   http://127.0.0.1:5002
+
+🎯 MEJORAS IMPLEMENTADAS:
+
+✅ 1. PERFIL COGNITIVO-AUTORAL (PCA):
+   - Detecta marco de referencia (jurídico, filosófico, económico, etc.)
+   - Identifica estrategia intelectual (analítica, crítica, propositiva, etc.)
+   - Extrae autores mencionados y motivos intelectuales
+   - Clasifica metodología jurídica predominante
+
+✅ 2. RAG DUAL - DOS BASES VECTORIALES:
+   - FAISS_A: Contenido tradicional (fragmentos de texto)
+   - FAISS_B: Perfiles cognitivos ("firmas intelectuales")
+
+✅ 3. GEMELOS COGNITIVOS:
+   - Busca documentos con perfiles similares para enriquecer prompts
+   - Mantiene coherencia epistemológica en las respuestas
+   - Sugiere marcos y estrategias afines del corpus
+
+✅ 4. AUTOAPRENDIZAJE MEJORADO:
+   - Registra estadísticas de ingesta documental
+   - Evalúa calidad de respuestas con Gemini
+   - Adapta prompts basado en éxitos/fallos previos
+   - Trazabilidad completa del proceso
+
+🔍 RUTAS PRINCIPALES:
+- /                    → Consultas doctrinarias con contexto cognitivo
+- /autoevaluaciones    → Historial de aprendizaje y estadísticas
+- /refinamientos       → Historial de refinamientos (si existe)
+
+🧠 FLUJO ENRIQUECIDO:
+1. Usuario hace consulta
+2. Sistema busca contenido relevante (FAISS_A)
+3. Sistema busca perfiles afines (FAISS_B) → "gemelos cognitivos"
+4. Contexto cognitivo + autoaprendizaje → prompt enriquecido
+5. Generación con Gemini (o Flan-T5 fallback)
+6. Autoevaluación y registro para mejora continua
+
+📊 ARCHIVOS CLAVE AÑADIDOS:
+- colaborative/scripts/extractor_pdf_enriquecido.py
+- colaborative/scripts/profiles_rag.py
+- colaborative/scripts/ingesta_enriquecida.py
+- colaborative/scripts/config_pca.py
+- setup_pca.py
+
+💡 PARA PROBAR:
+1. Ejecuta setup_pca.py (configuración inicial)
+2. Coloca algunos PDFs jurídicos en colaborative/data/pdfs/general/
+3. Ejecuta ingesta_enriquecida.py para procesarlos
+4. Inicia la webapp y haz consultas
+5. Ve a /autoevaluaciones para ver estadísticas
+
+⚡ PROBLEMAS RESUELTOS:
+✅ 1. Ahora se pueden manejar múltiples bases RAG especializadas
+✅ 2. IA genera informes con coherencia cognitiva y autoevaluación
+✅ 3. Información estructurada con trazabilidad completa
+✅ 4. Procesamiento optimizado con feedback visual
+
+ULTIMOS REQUERIMENTOS - PARA LAS BASES METACOGNITIVAS
+pip install flask google-generativeai sentence-transformers faiss-cpu PyMuPDF transformers torch numpy scikit-learn python-docx pyyaml lxml Pillow requests tqdm colorama jinja2 markupsafe itsdangerous click blinker tabulate spacy
+
+🎉 SISTEMA FINALIZADO - 8 NOV 2025 🎉
+=======================================
+
+✅ SISTEMA RAG COGNITIVO COMPLETO IMPLEMENTADO:
+
+1. RAG Tradicional Mejorado ✅
+2. Perfil Cognitivo-Autoral (PCA) ✅  
+3. 🧠 Sistema ANALYSER Cognitivo ✅
+4. 🧠 ANALYSER MÉTODO - Detección Autoral Avanzada ✅
+5. 🏛️ DETECTOR ARISTOTÉLICO - Análisis Silogístico Completo ✅
+
+🌐 WEBAPP OPERATIVA: http://127.0.0.1:5002
+
+RUTAS ACTIVAS:
+- /           → RAG principal con contexto cognitivo
+- /cognitivo  → 🧠 Sistema ANALYSER especializado
+- /radar      → 📊 Radar Cognitivo Interactivo (NUEVO)
+- /perfiles   → Panel PCA cognitivo-autoral
+- /autoevaluaciones → Sistema de aprendizaje
+
+🧠 ANALYSER INCLUYE:
+- 8 Rasgos Cognitivos Especializados
+- Búsqueda por Similitud Cognitiva  
+- Análisis por Autor
+- Comparación entre Autores
+- Dashboard de Estadísticas Interactivo
+
+📊 RADAR COGNITIVO PLUS INCLUYE:
+- Visualización Gráfica Radar Interactiva
+- Plotly Charts Profesionales
+- Radar Individual por Autor
+- Radar Comparativo Multi-Autor Avanzado (NUEVO)
+- 🧭 Matriz de Similitud Cognitiva (NUEVO)
+- Heatmap de Convergencias Doctrinarias (NUEVO)
+- Análisis de Distancias Cognitivas (NUEVO)
+- Autores Disponibles con Estadísticas
+
+📁 ARCHIVOS IMPLEMENTADOS:
+- vectorizador_cognitivo.py ✅
+- analizador_perfiles.py ✅
+- ingesta_cognitiva.py ✅ (actualizada con ANALYSER COMPLETO)
+- radar_cognitivo.py ✅
+- radar_cognitivo_comparador.py ✅ (NUEVO)
+- matriz_cognitiva.py ✅ (NUEVO)
+- detector_autor_y_metodo.py ✅ (NUEVO - ANALYSER MÉTODO)
+- detector_razonamiento_aristotelico.py ✅ (NUEVO - DETECTOR ARISTOTÉLICO)
+- actualizar_db_analyser.py ✅ (NUEVO - Migración DB completa)
+- end2end_webapp.py (actualizado con 3 módulos radar) ✅
+- Base de datos cognitiva ✅
+
+🚀 INICIO RÁPIDO:
+===============
+1. Doble clic en: iniciar_sistema.bat
+   - Activa entorno automáticamente
+   - Abre navegador automáticamente
+   - Muestra todas las rutas disponibles
+
+2. O desde PowerShell:
+   .\iniciar_sistema.ps1
+
+3. O método manual:
+   .venv\Scripts\Activate.ps1
+   python colaborative/scripts/end2end_webapp.py
+
+🚀 LISTO PARA USO INMEDIATO
+
+PARA PARA PROCESAR DATOS 
+📕 Archivos PDF (principalmente)
+📄 Documentos Word (.docx)
+📝 Archivos de texto (.txt)
+Contenido Jurídico Ideal:
+📚 Doctrina jurídica (libros, artículos académicos)
+⚖️ Jurisprudencia (fallos, sentencias)
+📋 Códigos y leyes (textos normativos)
+🎓 Papers académicos jurídicos
+📖 Manuales de derecho
+📰 Artículos de revistas jurídicas
+🧠 ¿Qué extrae el sistema de cada documento?
+Análisis Cognitivo-Autoral:
+👤 Autor detectado automáticamente
+📚 Tipo de pensamiento (analítico, crítico, dogmático, etc.)
+🎭 Tono del discurso (formal, académico, práctico)
+📊 8 Rasgos cognitivos especializados:
+Los 8 Rasgos que Analiza:
+📏 Formalismo jurídico - Uso de citas legales formales
+🎨 Creatividad conceptual - Originalidad en argumentación
+🔒 Dogmatismo - Rigidez vs flexibilidad doctrinal
+🔬 Empirismo evidencial - Uso de datos y casos concretos
+🌐 Interdisciplinariedad - Integración de otras disciplinas
+🧩 Nivel de abstracción - Complejidad conceptual
+📝 Complejidad sintáctica - Estructura del lenguaje
+⚖️ Uso de jurisprudencia - Referencias a precedentes
+
+🧠 ANALYSER MÉTODO - NUEVA FUNCIONALIDAD AVANZADA
+==================================================
+
+✅ DETECCIÓN AUTOMÁTICA DE AUTORES:
+- 👤 Autor principal con nivel de confianza
+- 📚 Autores citados separados del autor principal
+- 🔍 Usa metadatos PDF + NER + patrones de portada
+- 📝 Análisis de notas al pie y bibliografía
+
+✅ CLASIFICACIÓN DE RAZONAMIENTO JURÍDICO:
+- 🧭 Deductivo, Inductivo, Analógico, Teleológico
+- ⚖️ Sistémico, Autoritativo, A contrario
+- 🎯 Consecuencialista con scores de confianza
+- 📊 Top 3 tipos de razonamiento detectados
+
+✅ ANÁLISIS RETÓRICO ARISTOTÉLICO:  
+- 🎭 Ethos: Autoridad y credibilidad
+- ❤️ Pathos: Componente emocional  
+- 🧠 Logos: Estructura lógica del argumento
+- 📈 Métricas cuantificadas y normalizadas
+
+✅ MÉTRICAS TÉCNICAS EXTENDIDAS:
+- 📏 Complejidad sintáctica avanzada
+- 🏛️ Nivel técnico con latinismos
+- ⚖️ Densidad de citas legales
+- 📖 Referencias doctrinarias
+
+🏛️ DETECTOR ARISTOTÉLICO - ANÁLISIS SILOGÍSTICO AVANZADO
+=========================================================
+
+✅ MODALIDAD EPISTÉMICA:
+- 🎯 Apodíctico: Necesariamente verdadero, demostrable
+- 🤔 Dialéctico: Probable, opinión común, razonable
+- 🎭 Retórico: Persuasivo, evidente para todos
+- ⚠️ Sofístico: Aparentemente válido pero falaz
+
+✅ ESTRUCTURA SILOGÍSTICA CLÁSICA:
+- 📐 Barbara (AAA-1): Todos A son B, Todos B son C → Todos A son C
+- ⚡ Cesare (EAE-2): Ningún A es B, Todo C es A → Ningún C es B
+- 🔹 Darapti (AAI-3): Todo A es B, Todo A es C → Algún B es C
+- 🔸 Bramantip (AAI-4): Todo A es B, Todo B es C → Algún C es A
+- 📊 Ferio (EIO-1), Camestres (AEE-2) y otras figuras
+
+✅ RAZONAMIENTO EXPANDIDO:
+- 🧠 Abductivo: Mejor explicación, hipótesis más plausible
+- � Analógico: Por analogía, semejanza, comparación
+- 🎯 Teleológico: Finalidad, propósito, función social
+- 🏗️ Sistémico: Coherencia, estructura, articulación normativa
+
+✅ CONECTORES LÓGICOS DETECTADOS:
+- ➡️ "Por tanto", "En consecuencia", "Se concluye"
+- 🔀 "Si... entonces...", "Dado que", "Porque"
+- 📊 Cuantificadores: "Todos", "Algunos", "Ningún"
+- 🔗 Análisis de estructura argumentativa completa
+
+�🔧 INTEGRACIÓN AUTOMÁTICA:
+- Se activa automáticamente en ingesta_cognitiva.py
+- Compatible con sistema FAISS existente
+- Exporta a SQLite con nuevos campos aristotélicos
+- Visualizable en radar cognitivo extendido
+
+🚀 COMANDOS PARA ACTIVAR ANALYSER COMPLETO:
+1. python colaborative\scripts\actualizar_db_analyser.py
+2. python colaborative\scripts\ingesta_cognitiva.py
+3. .\iniciar_sistema.bat
+
+⚡ RESULTADOS ARISTOTÉLICOS:
+- Detección precisa de estructuras silogísticas
+- Clasificación automática de modalidad epistémica
+- Análisis de conectores lógicos y cuantificadores
+- Perfiles cognitivos aristotélicos completos
+
+🚀 PROCESO SIMPLIFICADO - UN SOLO COMANDO
+==========================================
+
+## CONFIGURACIÓN INICIAL (solo una vez):
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install flask google-generativeai sentence-transformers faiss-cpu PyMuPDF transformers torch numpy scikit-learn python-docx pyyaml lxml Pillow requests tqdm colorama jinja2 markupsafe itsdangerous click blinker tabulate spacy
+
+## USO DIARIO - SÚPER SIMPLE:
+
+### 1. Agregar PDFs:
+Coloca archivos PDF en: C:\Users\USUARIO\Programacion\modelos\App_colaborativa\colaborative\data\pdfs\general\
+
+### 2. ⭐ PROCESAR TODO (UN SOLO COMANDO):
+python procesar_todo.py
+
+### 3. Usar sistema:
+.\iniciar_sistema.bat
+
+¡ESO ES TODO! 🎉
+
+---
+
+❌ YA NO NECESITAS ejecutar múltiples comandos:
+- ❌ actualizar_db_analyser.py  
+- ❌ ingesta_cognitiva.py
+- ❌ ingesta_enriquecida.py
+- ❌ actualizador_integral_bases.py
+
+✅ SOLO USA: python procesar_todo.py
+
+Este comando único:
+✅ Detecta PDFs nuevos automáticamente
+✅ Actualiza bases de datos si es necesario  
+✅ Procesa documentos con ANALYSER MÉTODO
+✅ Sincroniza todos los índices
+✅ Te dice exactamente qué hacer después
+
+💡 FLUJO SIMPLIFICADO:
+1. Agregar PDFs → 2. python procesar_todo.py → 3. .\iniciar_sistema.bat
+
+¡SISTEMA UNIFICADO Y SIMPLE!

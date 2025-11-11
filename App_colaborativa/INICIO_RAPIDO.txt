@@ -1,0 +1,205 @@
+🚀 GUÍA RÁPIDA: CÓMO INICIAR EL SISTEMA
+====================================
+
+OPCIÓN A: RECOMENDADA (La más simple)
+────────────────────────────────────
+
+1️⃣  Abre PowerShell en la carpeta del proyecto:
+    cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+
+2️⃣  Activa el entorno virtual:
+    .venv\Scripts\Activate.ps1
+
+3️⃣  Inicia el servidor Flask simplificado:
+    python servidor_flask_simplificado.py
+
+4️⃣  Abre el navegador y ve a:
+    http://127.0.0.1:5002/pensamiento
+
+✅ Verás: Panel interactivo con 4 autores y análisis multicapa
+
+════════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN B: Si quieres usar el servidor antiguo (end2end_webapp.py)
+─────────────────────────────────────────────────────────────────
+
+1️⃣  Abre PowerShell:
+    cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+
+2️⃣  Activa el entorno virtual:
+    .venv\Scripts\Activate.ps1
+
+3️⃣  Primero, corrige la ruta /pensamiento:
+    python corrector_ruta_pensamiento.py
+
+    Verás algo como:
+    ✅ Encontrada ruta antigua /pensamiento
+    💾 Backup guardado: end2end_webapp_backup.py
+    ✅ Archivo actualizado: end2end_webapp.py
+
+4️⃣  Inicia el servidor Flask:
+    python colaborative\scripts\end2end_webapp.py
+
+5️⃣  Abre el navegador y ve a:
+    http://127.0.0.1:5002/pensamiento
+
+✅ Verás: Panel interactivo con 4 autores (MISMOS DATOS que Opción A)
+
+════════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN C: Ver datos en HTML estático (Puerto 8888)
+──────────────────────────────────────────────────
+
+1️⃣  Abre PowerShell:
+    cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+
+2️⃣  Inicia el servidor HTTP simple:
+    python servidor_http_simple.py
+
+3️⃣  Abre el navegador automáticamente a:
+    http://127.0.0.1:8888/biblioteca_multicapa.html
+
+✅ Verás: Misma interfaz que Opción A pero en HTML estático
+
+════════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN D: Ver datos en JSON (API)
+─────────────────────────────────
+
+1️⃣  Primero inicia el servidor de la Opción A:
+    python servidor_flask_simplificado.py
+
+2️⃣  En OTRA terminal, ejecuta:
+    
+    # Ver lista de autores
+    curl http://127.0.0.1:5002/api/autores
+    
+    # Ver análisis de un autor específico
+    curl http://127.0.0.1:5002/api/pensamiento/Daniel%20Esteban%20Brola
+
+✅ Verás: Datos en formato JSON
+
+════════════════════════════════════════════════════════════════════════════════
+
+📊 COMPARATIVA DE OPCIONES:
+
+┌─────────────────────────────────────────────────────────────────┐
+│ OPCIÓN A: servidor_flask_simplificado.py                        │
+├─────────────────────────────────────────────────────────────────┤
+│ Puerto: 5002                                                    │
+│ Interfaz: HTML interactivo                                      │
+│ Datos: 4 autores, 5 capas de análisis                          │
+│ API JSON: Sí (/api/autores, /api/pensamiento/<autor>)          │
+│ Recomendación: ⭐⭐⭐⭐⭐ (LA MEJOR)                           │
+│ Comando: python servidor_flask_simplificado.py                  │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ OPCIÓN B: end2end_webapp.py (Corregido)                        │
+├─────────────────────────────────────────────────────────────────┤
+│ Puerto: 5002                                                    │
+│ Interfaz: HTML interactivo (+ otras rutas)                      │
+│ Datos: 4 autores, 5 capas de análisis                          │
+│ API JSON: No (o limitada)                                       │
+│ Recomendación: ⭐⭐⭐ (Mantiene funcionalidad antigua)        │
+│ Comando: python corrector_ruta_pensamiento.py                   │
+│          python colaborative\scripts\end2end_webapp.py          │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ OPCIÓN C: servidor_http_simple.py                              │
+├─────────────────────────────────────────────────────────────────┤
+│ Puerto: 8888                                                    │
+│ Interfaz: HTML estático                                         │
+│ Datos: 4 autores, 5 capas de análisis                          │
+│ API JSON: No                                                    │
+│ Recomendación: ⭐⭐⭐ (Si solo quieres ver HTML)              │
+│ Comando: python servidor_http_simple.py                         │
+└─────────────────────────────────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════════
+
+⚡ INICIO RÁPIDO (3 pasos):
+
+1. Abre PowerShell
+2. cd c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+3. .venv\Scripts\Activate.ps1
+4. python servidor_flask_simplificado.py
+5. Abre navegador: http://127.0.0.1:5002/pensamiento
+
+✅ Listo!
+
+════════════════════════════════════════════════════════════════════════════════
+
+❓ PREGUNTAS FRECUENTES:
+
+P: ¿Qué es lo primero que debo ver?
+R: La página de selección de autores con 4 opciones:
+   • Noelia Malvina Cofré
+   • Citlalli
+   • Daniel Esteban Brola
+   • Carlos Pandiella Molina
+
+P: ¿Qué datos debo esperar?
+R: Para cada autor:
+   • 233,792 palabras totales analizadas
+   • 5 capas de análisis (Semántica, Cognitiva, Metodológica, Evolutiva, Relacional)
+   • Métricas cognitivas (formalismo, creatividad, dogmatismo, empirismo, etc.)
+
+P: ¿Qué puerto debo usar?
+R: 
+   • Opción A (Recomendada): puerto 5002 (Flask)
+   • Opción C: puerto 8888 (HTTP)
+
+P: ¿Puedo usar ambos puertos al mismo tiempo?
+R: Sí, en dos terminales diferentes:
+   Terminal 1: python servidor_flask_simplificado.py (puerto 5002)
+   Terminal 2: python servidor_http_simple.py (puerto 8888)
+   Ambos mostrarán los MISMOS datos
+
+P: ¿Qué puerto ya está siendo usado?
+R: Si ves error como "Address already in use", cambia el puerto en el archivo:
+   - servidor_flask_simplificado.py, línea ~120: port=5002 → port=5003
+   - servidor_http_simple.py, línea ~50: port=8888 → port=8889
+
+P: ¿Cómo veo los datos en JSON?
+R: Opción A proporciona API:
+   curl http://127.0.0.1:5002/api/autores
+   curl http://127.0.0.1:5002/api/pensamiento/Daniel%20Esteban%20Brola
+
+════════════════════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST ANTES DE INICIAR:
+
+□ ¿Estoy en la carpeta correcta?
+  c:\Users\USUARIO\Programacion\modelos\App_colaborativa
+
+□ ¿Tengo activado el entorno virtual (.venv)?
+  Deberías ver: (.venv) PS C:\Users...
+
+□ ¿Están los archivos creados?
+  • integrador_pensamiento_flask.py ✅
+  • servidor_flask_simplificado.py ✅
+  • servidor_http_simple.py ✅
+
+□ ¿Puedo ejecutar Python?
+  python --version → Python 3.x.x
+
+□ ¿Tengo Flask instalado?
+  pip list | grep -i flask (si no: pip install flask)
+
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 RESUMEN:
+
+Para la experiencia MEJOR:
+
+$ python servidor_flask_simplificado.py
+
+Luego abre: http://127.0.0.1:5002/pensamiento
+
+Verás: Panel interactivo con 4 autores, 5 capas de análisis, y 233,792 palabras.
+
+¡ESO ES TODO!
+
+════════════════════════════════════════════════════════════════════════════════

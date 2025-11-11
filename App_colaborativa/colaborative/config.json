@@ -1,0 +1,26 @@
+{
+  "system": {
+    "name": "RAG Enriquecido con PCA",
+    "version": "1.0.0",
+    "description": "Sistema de Recuperación Aumentada con Perfiles Cognitivo-Autorales"
+  },
+  "models": {
+    "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+    "generator_local": "google/flan-t5-base",
+    "generator_cloud": "gemini-2.5-pro",
+    "ner": "mrm8488/bert-spanish-cased-finetuned-ner"
+  },
+  "parameters": {
+    "chunk_size": 800,
+    "chunk_overlap": 100,
+    "k_search_content": 5,
+    "k_search_profiles": 6,
+    "max_new_tokens": 256,
+    "temperature": 0.1
+  },
+  "webapp": {
+    "host": "127.0.0.1",
+    "port": 5002,
+    "debug": false
+  }
+}

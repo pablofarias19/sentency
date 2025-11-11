@@ -1,0 +1,113 @@
+📁 GUÍA RÁPIDA: DÓNDE AGREGAR SENTENCIAS JUDICIALES
+=====================================================
+
+✅ DIRECTORIOS CREADOS Y LISTOS PARA USO
+
+🎯 **OPCIÓN 1 - FORMATO TXT (RECOMENDADO):**
+
+📂 Ubicación:
+   colaborative/data/pdfs/sentencias_texto/
+
+📋 Ventajas:
+   ✅ Extracción 100% precisa
+   ✅ Procesamiento más rápido
+   ✅ Menor uso de recursos
+   ✅ Mejor detección de estructura VISTO-CONSIDERANDO-RESUELVO
+
+💡 Ejemplo de nombres:
+   - Fallo_CSJN_2024_Responsabilidad_Civil.txt
+   - Sentencia_SCBA_2023_Tutela_Anticipada.txt
+   - TSJ_Cordoba_2025_Daños_Punitivos.txt
+
+
+🎯 **OPCIÓN 2 - FORMATO PDF:**
+
+📂 Ubicación:
+   colaborative/data/pdfs/sentencias_pdf/
+
+⚠️ Consideraciones:
+   - Extracción puede ser imprecisa si está escaneado
+   - Mayor consumo de procesamiento
+   - Se recomienda pre-extraer a TXT si es posible
+
+💡 Ejemplo de nombres:
+   - Fallo_CSJN_2024_Responsabilidad_Civil.pdf
+   - Sentencia_SCBA_2023_Tutela_Anticipada.pdf
+
+
+🚀 **CÓMO PROCESAR LAS SENTENCIAS:**
+
+Método 1: Centro de Control Maestro (MÁS FÁCIL)
+   1. Ejecutar: python colaborative/scripts/centro_control_maestro.py
+   2. Elegir opción "S" (RAG Sentencias)
+   3. Opción S1: Ingestar corpus de sentencias
+   4. El sistema procesa TODO automáticamente
+
+Método 2: Scripts individuales (Manual)
+   1. Ingestar: python colaborative/scripts/ingesta_sentencias.py
+   2. Construir índice: python colaborative/scripts/build_faiss_sentencias.py
+   3. Consultar: python colaborative/scripts/query_rag_sentencias.py
+   4. Exportar CSV: python colaborative/scripts/report_sentencias_csv.py
+   5. API web: python colaborative/scripts/api_sentencias.py
+
+Método 3: Desde la webapp (RECOMENDADO cuando esté disponible)
+   - http://127.0.0.1:5002/cognitivo
+   - Opción "Procesar Documentos" incluirá sentencias
+
+
+📊 **QUÉ ANALIZA EL SISTEMA:**
+
+Para cada sentencia detecta:
+   ✅ Estructura judicial (VISTO, CONSIDERANDO, RESUELVO)
+   ✅ Tipo de razonamiento (deductivo, inductivo, analógico, teleológico)
+   ✅ Modalidad epistémica (apodíctico, dialéctico, retórico)
+   ✅ Citaciones doctrinarias y jurisprudenciales
+   ✅ Tribunal, fecha, carátula, partes
+   ✅ Análisis retórico (ethos, pathos, logos)
+   ✅ Conectores lógicos y silogismos
+   ✅ Ponderación de principios
+
+
+🔍 **METADATOS EXTRAÍDOS AUTOMÁTICAMENTE:**
+
+- tribunal: Corte, Cámara, TSJ, etc.
+- fecha: Extracción automática de fecha del fallo
+- caratula: Nombre de la causa
+- voto: Mayoritario, disidente, concurrente
+- resultado: Admite, rechaza, hace lugar parcialmente
+- tipo_sentencia: Definitiva, interlocutoria, apelación
+- materia: Civil, comercial, laboral, penal, etc.
+
+
+💾 **ALMACENAMIENTO:**
+
+Los análisis se guardan en:
+   - Base de datos: colaborative/bases_rag/cognitiva/pensamiento_integrado_v2.db
+   - Índice FAISS: colaborative/bases_rag/cognitiva/faiss_sentencias.index
+   - Metadatos JSON: colaborative/data/pdfs/general/metadatos_sentencias.json
+
+
+🌐 **CONSULTA WEB:**
+
+Una vez procesadas, podrás consultarlas desde:
+   http://127.0.0.1:5002/cognitivo
+   (Sistema ANALYSER incluye análisis de sentencias)
+
+
+📝 **EJEMPLO DE USO:**
+
+1. Copio "Fallo_Kelsen_vs_Estado_2024.txt" a sentencias_texto/
+2. Ejecuto centro_control_maestro.py → Opción S1
+3. Sistema analiza automáticamente:
+   - Detecta tribunal, fecha, partes
+   - Extrae razonamiento jurídico
+   - Identifica tipo de argumentación
+   - Guarda en base de datos
+4. Consulto desde webapp o por API
+
+
+✅ TODO LISTO - SOLO AGREGA TUS SENTENCIAS Y PROCESA
+====================================================
+
+Fecha de creación de directorios: 11 de noviembre de 2025
+Sistema compatible: RAG v7.4+, ANALYSER MÉTODO v2.0, Centro de Control Maestro

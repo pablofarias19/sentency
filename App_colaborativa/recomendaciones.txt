@@ -1,0 +1,406 @@
+Guía Completa: Adaptar el Sistema RAG a Procesal Civil
+🚀 PASO 1: Instalación Inicial
+1.1 Instalar dependencias
+Primero necesitas crear un archivo requirements.txt:
+
+# Crear requirements.txt
+cat > requirements.txt << 'EOF'
+langchain-google-genai>=0.1.0
+langchain-chroma>=0.1.0
+langchain-huggingface>=0.0.1
+langchain-core>=0.2.0
+streamlit>=1.30.0
+pdfplumber>=0.10.0
+reportlab>=4.0.0
+tqdm>=4.65.0
+langdetect>=1.0.9
+chromadb>=0.4.0
+sentence-transformers>=2.2.0
+EOF
+
+# Instalar
+pip install -r requirements.txt
+1.2 Configurar API Key de Gemini
+# Opción 1: Variable de entorno temporal
+export GOOGLE_API_KEY="tu_clave_de_google_gemini_aqui"
+
+# Opción 2: Archivo .env (recomendado)
+cat > .env << 'EOF'
+GOOGLE_API_KEY=tu_clave_de_google_gemini_aqui
+EOF
+
+# Agregar .env al gitignore
+echo ".env" >> .gitignore
+Para obtener tu API key: https://makersuite.google.com/app/apikey
+
+⚙️ PASO 2: Configurar Bases RAG para Procesal Civil
+2.1 Editar config.py
+Abre config.py y modifica la sección de bases RAG (alrededor de la línea 50):
+
+# ======================
+# BASES RAG DISPONIBLES
+# ======================
+
+BASES_RAG: Dict[str, str] = {
+    # Bases de Procesal Civil
+    "Procesal Civil - Doctrina": "pdfs_procesal_doctrina",
+    "Procesal Civil - Jurisprudencia": "pdfs_procesal_jurisp",
+    "Procesal Civil - Normativa": "pdfs_procesal_normativa",
+    "Procesal Civil - Formularios": "pdfs_procesal_formularios",
+    
+    # Opcional: mantener las bases originales si las necesitas
+    # "Salud - Médica": "pdfs_salud_medica",
+    # "Salud - Laboral": "pdfs_salud_laboral",
+}
+2.2 Actualizar Keywords (línea 204)
+# ======================
+# KEYWORDS PROCESAL CIVIL
+# ======================
+
+KEYWORDS_JURIDICO_SANIT = (
+    # Keywords procesales
+    "artículo", "articulo", "considerando", "resuelve", "sentencia", "fallo",
+    "tribunal", "cámara", "juzgado", "demanda", "reconvención", "contestación",
+    "prueba", "pericial", "testimonial", "documental", "informativa",
+    
+    # Conceptos procesales clave
+    "competencia", "jurisdicción", "admisibilidad", "legitimación",
+    "carga probatoria", "carga de la prueba", "valoración probatoria",
+    "medida cautelar", "embargo", "inhibición", "anotación de litis",
+    "excepción", "nulidad", "caducidad", "prescripción",
+    "recurso", "apelación", "casación", "queja", "aclaratoria",
+    "cosa juzgada", "litispendencia", "ejecutoria",
+    
+    # Actos procesales
+    "traslado", "vista", "alegatos", "llamamiento de autos",
+    "notificación", "cédula", "oficio", "exhorto",
+    "audiencia", "vista de causa", "alegato",
+    
+    # Códigos relevantes
+    "CPCCN", "CPCC", "Código Procesal"
+)
+📝 PASO 3: Personalizar el Prompt de Análisis
+3.1 Crear prompt específico para procesal civil
+# Crear nuevo archivo de prompt
+cat > prompts/analisis_procesal_civil.md << 'EOF'
+[Contexto recuperado con metadatos y referencias]
+{contexto}
+
+[Texto o consulta principal]
+{texto}
+
+[INSTRUCCIONES DE ANÁLISIS PROCESAL CIVIL]
+
+1️⃣ **Síntesis contextual**
+   - Identifica el tipo de proceso (conocimiento, ejecución, cautelar, etc.)
+   - Determina la etapa procesal actual (demanda, prueba, alegatos, sentencia, recurso)
+   - Identifica las partes y sus roles procesales
+   - Reconoce fuentes aplicables (CPCCN, códigos provinciales, jurisprudencia)
+
+2️⃣ **Ejes procesales clave**
+   Analiza en profundidad los siguientes aspectos según corresponda:
+   
+   **a) Competencia y Admisibilidad**
+   - Competencia material, territorial, funcional
+   - Requisitos formales de admisibilidad
+   - Legitimación activa y pasiva
+   
+   **b) Prueba**
+   - Carga probatoria de cada parte
+   - Admisibilidad y pertinencia de las pruebas
+   - Valoración probatoria según el sistema legal
+   - Pruebas producidas vs. pruebas pendientes
+   
+   **c) Plazos y Preclusión**
+   - Plazos procesales aplicables
+   - Actos procesales realizados en término
+   - Efectos de la preclusión
+   
+   **d) Recursos**
+   - Recursos disponibles según la etapa
+   - Requisitos de admisibilidad del recurso
+   - Plazo, forma y efectos
+   
+   **e) Medidas Cautelares**
+   - Requisitos: verosimilitud del derecho y peligro en la demora
+   - Contracautela exigible
+   - Procedimiento de obtención
+
+3️⃣ **Evaluación estratégica**
+   - **Fortalezas procesales**: Argumentos sólidos, pruebas contundentes
+   - **Debilidades**: Defectos formales, insuficiencia probatoria, preclusiones
+   - **Riesgos**: Prescripción, caducidad, costas
+   - **Contradicciones jurisprudenciales**: Corrientes encontradas sobre el tema
+
+4️⃣ **Jurisprudencia aplicable**
+   - Cita fallos relevantes con formato:
+     "Tribunal – Carátula (Año), [Jurisdicción]"
+   - Distingue entre jurisprudencia plenaria, mayoritaria y minoritaria
+   - Identifica tendencias actuales de los tribunales
+
+5️⃣ **Normativa aplicable**
+   - Artículos específicos del CPCCN o código provincial
+   - Legislación de fondo aplicable (CCyCN, leyes especiales)
+   - Acordadas y resoluciones relevantes
+
+6️⃣ **Estrategia procesal recomendada**
+   - Próximos pasos procesales sugeridos
+   - Actos procesales críticos a no omitir
+   - Alternativas disponibles (mediación, transacción, etc.)
+
+7️⃣ **Preguntas derivadas**
+   - Formula 3-5 preguntas que profundicen el análisis
+   - Indica qué información adicional sería necesaria (documentos, pericias, etc.)
+
+8️⃣ **Conclusión procesal**
+   - Probabilidad de éxito (baja/media/alta) con fundamentación
+   - Estimación de tiempos procesales
+   - Costos estimados del proceso
+
+[FORMATO DE SALIDA]
+
+Primero entrega un **informe narrativo completo** con estas secciones:
+🔹 Resumen del caso y etapa procesal
+🔹 Análisis de competencia y admisibilidad
+🔹 Análisis probatorio
+🔹 Plazos y preclusiones relevantes
+🔹 Jurisprudencia y normativa aplicable
+🔹 Fortalezas y debilidades procesales
+🔹 Estrategia procesal recomendada
+🔹 Preguntas de profundización
+🔹 Conclusión: probabilidad de éxito y próximos pasos
+
+Luego, entrega un **bloque JSON resumido**:
+
+{
+  "tipo_proceso": "conocimiento|ejecución|cautelar|...",
+  "etapa_procesal": "demanda|prueba|alegatos|sentencia|recurso|...",
+  "tesis": "...",
+  "conceptos_clave": ["competencia", "carga probatoria", "..."],
+  "fortalezas": ["..."],
+  "debilidades": ["..."],
+  "preguntas": ["..."],
+  "probabilidad_exito": "baja|media|alta",
+  "jurisprudencia_relevante": [
+    {"tribunal": "...", "caratula": "...", "anio": "...", "jurisdiccion": "..."}
+  ],
+  "normativa_aplicable": [
+    {"norma": "CPCCN", "articulos": ["...", "..."]},
+    {"norma": "CCyCN", "articulos": ["..."]}
+  ],
+  "proximos_pasos": ["...", "..."],
+  "plazo_estimado_meses": 12
+}
+EOF
+3.2 Configurar para usar el nuevo prompt
+# Opción 1: Variable de entorno
+export ANALYSIS_PROMPT_FILE="./prompts/analisis_procesal_civil.md"
+
+# Opción 2: Agregarlo al .env
+echo 'ANALYSIS_PROMPT_FILE=./prompts/analisis_procesal_civil.md' >> .env
+📚 PASO 4: Preparar e Ingestar Documentos
+4.1 Organizar tus PDFs
+Crea una estructura de carpetas:
+
+mkdir -p pdfs/procesal_civil/{doctrina,jurisprudencia,normativa,formularios}
+Coloca tus documentos:
+
+pdfs/procesal_civil/doctrina/ → Libros, artículos doctrinarios
+pdfs/procesal_civil/jurisprudencia/ → Sentencias, fallos
+pdfs/procesal_civil/normativa/ → CPCCN, códigos provinciales, leyes
+pdfs/procesal_civil/formularios/ → Modelos de escritos
+4.2 Ingestar documentos individualmente
+# Ingestar un PDF de doctrina
+python ingesta.py \
+  --pdf ./pdfs/procesal_civil/doctrina/palacio_derecho_procesal_civil.pdf \
+  --base "Procesal Civil - Doctrina"
+
+# Ingestar jurisprudencia
+python ingesta.py \
+  --pdf ./pdfs/procesal_civil/jurisprudencia/fallo_csjn_2023.pdf \
+  --base "Procesal Civil - Jurisprudencia"
+
+# Ingestar normativa
+python ingesta.py \
+  --pdf ./pdfs/procesal_civil/normativa/cpccn.pdf \
+  --base "Procesal Civil - Normativa"
+4.3 Ingesta masiva (recomendado)
+# Doctrina
+export BASE_RAG="Procesal Civil - Doctrina"
+export PDF_DIR="./pdfs/procesal_civil/doctrina"
+python ingesta_batch.py
+
+# Jurisprudencia
+export BASE_RAG="Procesal Civil - Jurisprudencia"
+export PDF_DIR="./pdfs/procesal_civil/jurisprudencia"
+python ingesta_batch.py
+
+# Normativa
+export BASE_RAG="Procesal Civil - Normativa"
+export PDF_DIR="./pdfs/procesal_civil/normativa"
+python ingesta_batch.py
+🔍 PASO 5: Usar el Sistema
+5.1 Interfaz Web (Recomendado para usuarios no técnicos)
+streamlit run app_streamlit_salud.py
+Abre tu navegador en http://localhost:8501
+
+Funcionalidades disponibles:
+
+📤 Subir PDF de un escrito, demanda o sentencia
+💬 Hacer consultas procesales ("¿Qué recurso procede contra...?")
+📊 Ver análisis con probabilidad de éxito
+💾 Guardar análisis en historial
+📥 Exportar reportes a PDF
+🔄 Seleccionar qué bases RAG consultar
+5.2 Línea de Comandos
+# Analizar un PDF (demanda, sentencia, escrito)
+python analyser.py \
+  --pdf ./casos/demanda_daños_perjuicios.pdf \
+  --out reporte_analisis.pdf
+
+# Hacer una consulta específica
+python analyser.py \
+  --query "¿Cuál es el plazo para apelar una sentencia definitiva en primera instancia según el CPCCN?" \
+  --out respuesta_recurso.pdf
+
+# Analizar un caso complejo
+python analyser.py \
+  --query "Analiza la competencia en un caso de daños y perjuicios por accidente de tránsito donde el actor tiene domicilio en CABA y el demandado en Provincia de Buenos Aires. El accidente ocurrió en Córdoba." \
+  --out analisis_competencia.pdf
+🛠️ PASO 6: Herramientas de Auditoría y Mantenimiento
+6.1 Verificar bases creadas
+# Listar todas las bases y versiones
+python audit_bases.py --list
+
+# Ver estadísticas generales
+python audit_bases.py --stats
+6.2 Auditar calidad de una base
+# Auditar base de jurisprudencia
+python audit_bases.py --audit "Procesal Civil - Jurisprudencia"
+
+# Resultado esperado:
+# ✓ Total documentos: 150
+# ✓ Total fragmentos: 4521
+# ✓ Calidad promedio: 3.8/5.0
+# ✓ Diversidad léxica: 0.42
+6.3 Comparar versiones
+# Si migraste de un modelo de embeddings a otro
+python audit_bases.py --compare "Procesal Civil - Doctrina" "1.0.0" "2.0.0"
+💡 EJEMPLOS DE USO PRÁCTICOS
+Ejemplo 1: Analizar una demanda
+python analyser.py \
+  --pdf ./casos/demanda_cumplimiento_contrato.pdf \
+  --out analisis_demanda.pdf
+El sistema devolverá:
+
+Identificación de partes y pretensiones
+Análisis de competencia
+Evaluación de pruebas ofrecidas
+Carga probatoria de cada parte
+Jurisprudencia aplicable
+Probabilidad de éxito
+Defensas posibles del demandado
+Ejemplo 2: Consulta sobre recursos
+python analyser.py \
+  --query "Analiza si procede recurso de apelación contra un auto que rechaza una medida cautelar de embargo preventivo. Fundamenta con jurisprudencia." \
+  --out recurso_cautelar.pdf
+Ejemplo 3: Estrategia procesal
+python analyser.py \
+  --query "Tengo una sentencia adversa en primera instancia por daños y perjuicios. El juez valoró negativamente la prueba pericial. ¿Qué estrategia procesal recomendás para el recurso de apelación?" \
+  --out estrategia_apelacion.pdf
+Ejemplo 4: Investigación jurisprudencial
+python analyser.py \
+  --query "Recopila jurisprudencia de la CSJN sobre carga probatoria en casos de responsabilidad del Estado por falta de servicio entre 2015-2024" \
+  --out jurisp_falta_servicio.pdf
+🎯 CASOS DE USO POR ROL
+Para Abogados Litigantes:
+Analizar escritos de demanda antes de presentar
+Verificar admisibilidad de recursos
+Buscar jurisprudencia actualizada sobre temas específicos
+Evaluar probabilidad de éxito de una estrategia procesal
+Para Estudiantes:
+Consultar conceptos procesales con fuentes
+Analizar casos de estudio
+Preparar trabajos prácticos con fundamentación jurisprudencial
+Entender plazos y etapas procesales
+Para Procuradores:
+Verificar plazos y vencimientos
+Controlar requisitos formales de escritos
+Validar notificaciones y cédulas
+Consultar formularios y modelos
+Para Investigadores:
+Análisis comparado de jurisprudencia
+Tendencias en interpretación normativa
+Estudios de líneas jurisprudenciales
+Identificación de contradicciones entre tribunales
+⚙️ CONFIGURACIÓN AVANZADA
+Ajustar parámetros de búsqueda (config.py línea 188)
+@dataclass
+class AnalysisConfig:
+    k_por_base: int = 8              # Más fragmentos = más contexto (5-10)
+    fetch_k: int = 50                # Más candidatos = mejor ranking (32-100)
+    max_context_length: int = 12000  # Más contexto para casos complejos
+    
+    # Re-scoring
+    enable_rescoring: bool = True    # Mejora precisión
+    keyword_bonus_max: float = 0.25  # Bonus por keywords procesales
+Cambiar modelo LLM (config.py línea 61)
+DEFAULT_LLM = "gemini-2.5-pro"        # Más preciso pero más lento
+# DEFAULT_LLM = "gemini-1.5-flash"   # Más rápido pero menos preciso
+DEFAULT_TEMPERATURE = 0.1            # Más bajo = más determinístico (0.0-0.5)
+Mejorar extracción de metadata (config.py línea 174)
+detect_language: bool = True           # Detectar idioma
+extract_author: bool = True            # Extraer autor/tribunal
+extract_title: bool = True             # Extraer carátula
+extract_year: bool = True              # Extraer año del fallo
+extract_jurisdiction: bool = True      # Extraer jurisdicción
+use_llm_metadata: bool = True          # Usar Gemini (más preciso pero lento)
+📊 MONITOREO Y OPTIMIZACIÓN
+Ver historial de análisis
+En la interfaz Streamlit:
+
+Ir a sección "🗂️ Historial de análisis anteriores"
+Ver todos los análisis guardados con timestamp
+Exportar o descargar PDFs originales
+Limpiar historial antiguo
+# En Streamlit: sección "ℹ️ Información del sistema"
+# Click en "🧹 Limpiar archivos >30 días"
+Gestionar versiones de bases
+# Listar versiones de una base
+python audit_bases.py --audit "Procesal Civil - Doctrina"
+
+# Activar versión específica
+python audit_bases.py --activate "Procesal Civil - Doctrina" "1.0.0"
+
+# Migrar a mejor modelo de embeddings
+python migrate_cli.py \
+  --base "Procesal Civil - Doctrina" \
+  --model sentence-transformers/paraphrase-multilingual-mpnet-base-v2
+❓ SOLUCIÓN DE PROBLEMAS COMUNES
+"No module named 'langchain_huggingface'"
+pip install langchain-huggingface sentence-transformers
+"GOOGLE_API_KEY not found"
+export GOOGLE_API_KEY="tu_clave_aqui"
+# O agregarlo a .env
+"Base no encontrada"
+# Verifica que el nombre coincida exactamente con config.py
+python audit_bases.py --list
+Resultados poco relevantes
+# 1. Aumentar k_por_base en config.py
+# 2. Verificar calidad de la base
+python audit_bases.py --audit "Tu Base"
+# 3. Re-ingestar con mejor configuración
+🚀 PRÓXIMOS PASOS RECOMENDADOS
+Ingestar corpus inicial (50-200 documentos por base mínimo)
+Probar con casos reales y validar precisión
+Ajustar prompts según los resultados obtenidos
+Crear bases especializadas (ej: "Procesal Civil - Ejecución Fiscal")
+Documentar casos de uso exitosos para tu equipo
+¿Necesitas ayuda con algún paso específico? Puedo asistirte con:
+
+Crear el archivo de prompt personalizado
+Configurar las bases RAG
+Adaptar keywords específicos de tu jurisdicción
+Optimizar parámetros para tu tipo de documentos
+claude/verify-code-errors-011CUc4HU2KuGvtZwEe6LfVf
+
