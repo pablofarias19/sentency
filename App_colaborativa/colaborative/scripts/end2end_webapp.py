@@ -126,6 +126,19 @@ except ImportError as e:
     generador_informes = None
 
 # ====================================
+# Importar Sistema Judicial Argentina
+# ====================================
+try:
+    from webapp_rutas_judicial import registrar_rutas_judicial, init_sistema_judicial
+    from analyser_judicial_adapter import BibliotecaJudicial
+    SISTEMA_JUDICIAL_DISPONIBLE = True
+    print("✅ Sistema Judicial Argentina cargado")
+except ImportError as e:
+    print(f"⚠️ Sistema Judicial no disponible: {e}")
+    SISTEMA_JUDICIAL_DISPONIBLE = False
+
+
+# ====================================
 # RUTAS Y MODELOS LOCALES
 # ====================================
 BASE_DIR = Path("colaborative")
@@ -3405,7 +3418,7 @@ if __name__ == "__main__":
     
     # Ruta /informe-autor/<nombre_autor> ya registrada globalmente (línea ~3057)
     
-    print("✅ Colaborative E2E listo en http://127.0.0.1:5002")
+    print("✅ Colaborative E2E + Sistema Judicial listo en http://127.0.0.1:5002")
     print("📚 Sistema de Referencias de Autores disponible en /autores")
     print("🧠 Biblioteca Cognitiva disponible en /biblioteca")
     print("🚀 Iniciando servidor y abriendo navegador...")
@@ -3414,5 +3427,37 @@ if __name__ == "__main__":
     browser_thread = threading.Thread(target=abrir_navegador, daemon=True)
     browser_thread.start()
     
+
+    # =============================================================================
+    # ⚖️ SISTEMA JUDICIAL ARGENTINA - INTEGRACIÓN
+    # =============================================================================
+    if SISTEMA_JUDICIAL_DISPONIBLE:
+        try:
+            # Inicializar sistema judicial
+            init_sistema_judicial()
+
+            # Registrar rutas judiciales
+            registrar_rutas_judicial(app)
+
+            print("\n" + "="*70)
+            print("⚖️ SISTEMA JUDICIAL ARGENTINA INTEGRADO")
+            print("="*70)
+            print("\n✅ Rutas judiciales disponibles:")
+            print("   📋 Jueces:           http://127.0.0.1:5002/jueces")
+            print("   👤 Perfil Juez:      http://127.0.0.1:5002/juez/<nombre>")
+            print("   🧠 Cognitivo:        http://127.0.0.1:5002/cognitivo/<nombre>")
+            print("   📜 Líneas:           http://127.0.0.1:5002/lineas/<nombre>")
+            print("   🔗 Red Influencias:  http://127.0.0.1:5002/red/<nombre>")
+            print("   🔮 Predictivo:       http://127.0.0.1:5002/prediccion/<nombre>")
+            print("   📊 Informes:         http://127.0.0.1:5002/informes")
+            print("   ❓ Preguntas:        http://127.0.0.1:5002/preguntas/<nombre>")
+            print("\n" + "="*70 + "\n")
+
+        except Exception as e:
+            print(f"⚠️ Error integrando sistema judicial: {e}")
+    else:
+        print("⚠️ Sistema Judicial no disponible - verifica imports")
+
+
     # Iniciar Flask
     app.run(host="127.0.0.1", port=5002, debug=False)
