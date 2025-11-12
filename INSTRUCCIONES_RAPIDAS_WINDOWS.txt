@@ -1,0 +1,163 @@
+============================================================================
+MIGRACIÓN RÁPIDA DEL SISTEMA JUDICIAL - WINDOWS
+============================================================================
+
+Tu repositorio original está en:
+C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa
+
+============================================================================
+MÉTODO 1: AUTOMÁTICO CON POWERSHELL (RECOMENDADO)
+============================================================================
+
+1. Descargar repositorio desde GitHub:
+   - Ve a: https://github.com/pablofarias19/sentency
+   - Click en "Code" → "Download ZIP"
+   - Descomprimir en una carpeta temporal (ej: C:\Temp\sentency-main)
+
+2. Abrir PowerShell como Administrador:
+   - Click derecho en "Inicio" → "Windows PowerShell (Admin)"
+
+3. Permitir ejecución de scripts (una sola vez):
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+4. Ejecutar script de migración:
+   cd "C:\Temp\sentency-main"
+   .\migrar_windows.ps1 -RepoOriginal "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa" -RepoDescargado "C:\Temp\sentency-main"
+
+5. Seguir instrucciones en pantalla
+
+============================================================================
+MÉTODO 2: MANUAL PASO A PASO
+============================================================================
+
+PASO 1: CREAR BACKUP
+---------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL"
+xcopy "App_colaborativa" "App_colaborativa_backup_%date:~-4,4%%date:~-7,2%%date:~-10,2%" /E /I /H
+
+PASO 2: ELIMINAR ARCHIVOS DE AUTORES
+-------------------------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\scripts"
+
+del sistema_autor_centrico.py
+del visualizador_autor_centrico.py
+del comparador_mentes.py
+del gestor_unificado_autores.py
+del detector_autor_y_metodo.py
+del agregar_nuevo_autor.py
+del verificar_autores.py
+del analizador_perfiles.py
+del ingesta_cognitiva.py
+del ingesta_cognitiva_v3.py
+del ingesta_enriquecida.py
+del motor_ingesta_pensamiento.py
+
+PASO 3: ELIMINAR BASES DE DATOS DE AUTORES
+-------------------------------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\bases_rag\cognitiva"
+
+del autor_centrico.db
+del perfiles_autorales.db
+del multicapa_pensamiento.db
+del pensamiento_integrado_v2.db
+
+PASO 4: COPIAR ARCHIVOS JUDICIALES
+-----------------------------------
+Nota: Ajusta $ORIGEN según donde descargaste el repositorio
+
+$ORIGEN = "C:\Temp\sentency-main\App_colaborativa\colaborative\scripts"
+$DESTINO = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\scripts"
+
+# Copiar archivos judiciales (Fase 1-5)
+copy "$ORIGEN\inicializar_bd_judicial.py" "$DESTINO\"
+copy "$ORIGEN\ingesta_sentencias_judicial.py" "$DESTINO\"
+copy "$ORIGEN\extractor_metadata_argentina.py" "$DESTINO\"
+copy "$ORIGEN\schema_juez_centrico_arg.sql" "$DESTINO\"
+copy "$ORIGEN\analizador_pensamiento_judicial_arg.py" "$DESTINO\"
+copy "$ORIGEN\procesador_sentencias_completo.py" "$DESTINO\"
+copy "$ORIGEN\agregador_perfiles_jueces.py" "$DESTINO\"
+copy "$ORIGEN\analizador_lineas_jurisprudenciales.py" "$DESTINO\"
+copy "$ORIGEN\extractor_citas_jurisprudenciales.py" "$DESTINO\"
+copy "$ORIGEN\analizador_redes_influencia.py" "$DESTINO\"
+copy "$ORIGEN\motor_predictivo_judicial.py" "$DESTINO\"
+copy "$ORIGEN\generador_informes_judicial.py" "$DESTINO\"
+copy "$ORIGEN\sistema_preguntas_judiciales.py" "$DESTINO\"
+copy "$ORIGEN\motor_respuestas_judiciales.py" "$DESTINO\"
+copy "$ORIGEN\analyser_judicial_adapter.py" "$DESTINO\"
+copy "$ORIGEN\webapp_rutas_judicial.py" "$DESTINO\"
+
+PASO 5: COPIAR SCRIPTS DE UTILIDAD
+-----------------------------------
+$ORIGEN_RAIZ = "C:\Temp\sentency-main\App_colaborativa"
+$DESTINO_RAIZ = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa"
+
+copy "$ORIGEN_RAIZ\limpiar_sistema_autores.py" "$DESTINO_RAIZ\"
+copy "$ORIGEN_RAIZ\integrar_sistema_judicial.py" "$DESTINO_RAIZ\"
+copy "$ORIGEN_RAIZ\limpieza_final_repositorio.py" "$DESTINO_RAIZ\"
+
+PASO 6: INTEGRAR WEBAPP
+------------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa"
+python integrar_sistema_judicial.py
+
+============================================================================
+VERIFICACIÓN Y USO
+============================================================================
+
+1. VERIFICAR MIGRACIÓN:
+   cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL"
+   python verificar_migracion_completa.py
+
+2. INICIALIZAR SISTEMA:
+   cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\scripts"
+   python inicializar_bd_judicial.py
+
+3. INICIAR WEBAPP:
+   python end2end_webapp.py
+
+   Abrir navegador en: http://127.0.0.1:5002
+
+============================================================================
+ARCHIVOS IMPORTANTES DESCARGADOS
+============================================================================
+
+Estos archivos te ayudarán en Windows:
+
+1. MIGRACION_WINDOWS.md
+   - Guía completa para Windows con todos los detalles
+
+2. migrar_windows.ps1
+   - Script automatizado de PowerShell
+
+3. verificar_migracion_completa.py
+   - Script para verificar que todo se migró correctamente
+
+4. README.md
+   - Documentación completa del sistema
+
+============================================================================
+AYUDA
+============================================================================
+
+Si tienes problemas:
+
+1. Revisa MIGRACION_WINDOWS.md para detalles
+2. Asegúrate de tener Python instalado
+3. Instala dependencias: pip install flask pandas numpy scikit-learn sentence-transformers
+4. Verifica que las rutas no tengan caracteres especiales
+5. Ejecuta PowerShell como Administrador
+
+============================================================================
+RESUMEN DE CAMBIOS
+============================================================================
+
+✓ Eliminados: ~15 archivos de autores
+✓ Eliminadas: 4 bases de datos de autores
+✓ Copiados: 16 archivos del sistema judicial
+✓ Copiados: 3 scripts de utilidad
+✓ Copiada: Documentación completa
+✓ Modificado: end2end_webapp.py (rutas judiciales integradas)
+
+SIN CAMBIOS: Toda la infraestructura core (ANALYSER, RAG, embeddings, etc.)
+
+============================================================================
