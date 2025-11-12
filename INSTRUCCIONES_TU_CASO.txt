@@ -1,0 +1,294 @@
+============================================================================
+INSTRUCCIONES ESPECÍFICAS PARA TU MIGRACIÓN
+============================================================================
+
+RUTAS DE TU CONFIGURACIÓN:
+--------------------------
+Repositorio descargado:
+  C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main
+
+Repositorio original:
+  C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa
+
+============================================================================
+PASO 1: DESCOMPRIMIR SENTENCY
+============================================================================
+
+1. Descarga el ZIP desde GitHub:
+   https://github.com/pablofarias19/sentency
+   → Click "Code" → "Download ZIP"
+
+2. Descomprime en:
+   C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\
+
+3. Verifica que quede:
+   C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main\
+   (o zip\sentency-claude-judges-analysis-refactor-...)
+
+============================================================================
+PASO 2: EJECUTAR MIGRACIÓN AUTOMÁTICA
+============================================================================
+
+Opción A: Con PowerShell (RECOMENDADO)
+---------------------------------------
+
+1. Abrir PowerShell como Administrador:
+   - Click derecho en Inicio → "Windows PowerShell (Administrador)"
+
+2. Permitir ejecución de scripts (solo primera vez):
+
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+3. Navegar al repositorio descargado:
+
+   cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main"
+
+4. Ejecutar script de migración:
+
+   .\migrar_windows.ps1 -RepoOriginal "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa" -RepoDescargado "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main"
+
+5. Seguir instrucciones en pantalla:
+   - Confirmar backup (S)
+   - Confirmar migración (S)
+   - Confirmar integración webapp (S)
+
+============================================================================
+PASO 3: VERIFICACIÓN
+============================================================================
+
+Después de la migración, verificar:
+
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL"
+python verificar_migracion_completa.py
+
+Deberías ver:
+✓ Archivos de autores eliminados
+✓ Bases de datos correctas
+✓ Archivos judiciales presentes
+✓ Infraestructura core mantenida
+✓ Webapp integrada
+✓ Directorio raíz limpio
+✓ Documentación presente
+✓ Schema SQL correcto
+
+============================================================================
+PASO 4: INICIALIZAR Y PROBAR
+============================================================================
+
+1. Inicializar base de datos judicial:
+
+   cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\scripts"
+   python inicializar_bd_judicial.py
+
+2. Probar webapp:
+
+   python end2end_webapp.py
+
+3. Abrir navegador:
+
+   http://127.0.0.1:5002
+
+============================================================================
+OPCIÓN B: MIGRACIÓN MANUAL (SI PREFIERES MÁS CONTROL)
+============================================================================
+
+Si prefieres hacerlo paso a paso manualmente:
+
+PASO 1: Backup
+--------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL"
+xcopy "App_colaborativa" "App_colaborativa_backup_%date:~-4,4%%date:~-7,2%%date:~-10,2%" /E /I /H
+
+PASO 2: Eliminar archivos de autores
+-------------------------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\scripts"
+
+del sistema_autor_centrico.py
+del visualizador_autor_centrico.py
+del comparador_mentes.py
+del gestor_unificado_autores.py
+del detector_autor_y_metodo.py
+del agregar_nuevo_autor.py
+del verificar_autores.py
+del analizador_perfiles.py
+del ingesta_cognitiva.py
+del ingesta_cognitiva_v3.py
+
+PASO 3: Eliminar bases de datos de autores
+-------------------------------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\bases_rag\cognitiva"
+
+del autor_centrico.db
+del perfiles_autorales.db
+del multicapa_pensamiento.db
+del pensamiento_integrado_v2.db
+
+PASO 4: Copiar archivos judiciales
+-----------------------------------
+En PowerShell:
+
+$ORIGEN = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main\App_colaborativa\colaborative\scripts"
+$DESTINO = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa\colaborative\scripts"
+
+copy "$ORIGEN\inicializar_bd_judicial.py" "$DESTINO\"
+copy "$ORIGEN\ingesta_sentencias_judicial.py" "$DESTINO\"
+copy "$ORIGEN\extractor_metadata_argentina.py" "$DESTINO\"
+copy "$ORIGEN\schema_juez_centrico_arg.sql" "$DESTINO\"
+copy "$ORIGEN\analizador_pensamiento_judicial_arg.py" "$DESTINO\"
+copy "$ORIGEN\procesador_sentencias_completo.py" "$DESTINO\"
+copy "$ORIGEN\agregador_perfiles_jueces.py" "$DESTINO\"
+copy "$ORIGEN\analizador_lineas_jurisprudenciales.py" "$DESTINO\"
+copy "$ORIGEN\extractor_citas_jurisprudenciales.py" "$DESTINO\"
+copy "$ORIGEN\analizador_redes_influencia.py" "$DESTINO\"
+copy "$ORIGEN\motor_predictivo_judicial.py" "$DESTINO\"
+copy "$ORIGEN\generador_informes_judicial.py" "$DESTINO\"
+copy "$ORIGEN\sistema_preguntas_judiciales.py" "$DESTINO\"
+copy "$ORIGEN\motor_respuestas_judiciales.py" "$DESTINO\"
+copy "$ORIGEN\analyser_judicial_adapter.py" "$DESTINO\"
+copy "$ORIGEN\webapp_rutas_judicial.py" "$DESTINO\"
+
+PASO 5: Copiar scripts de utilidad
+-----------------------------------
+$ORIGEN_RAIZ = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main\App_colaborativa"
+$DESTINO_RAIZ = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa"
+
+copy "$ORIGEN_RAIZ\limpiar_sistema_autores.py" "$DESTINO_RAIZ\"
+copy "$ORIGEN_RAIZ\integrar_sistema_judicial.py" "$DESTINO_RAIZ\"
+copy "$ORIGEN_RAIZ\limpieza_final_repositorio.py" "$DESTINO_RAIZ\"
+
+PASO 6: Copiar documentación
+-----------------------------
+$DOC_ORIGEN = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main"
+$DOC_DESTINO = "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL"
+
+copy "$DOC_ORIGEN\README.md" "$DOC_DESTINO\"
+copy "$DOC_ORIGEN\PLAN_MIGRACION_SISTEMA_JUDICIAL.md" "$DOC_DESTINO\"
+copy "$DOC_ORIGEN\verificar_migracion_completa.py" "$DOC_DESTINO\"
+
+copy "$DOC_ORIGEN\App_colaborativa\FASE1_README.md" "$DESTINO_RAIZ\"
+copy "$DOC_ORIGEN\App_colaborativa\FASE2_README.md" "$DESTINO_RAIZ\"
+copy "$DOC_ORIGEN\App_colaborativa\FASE3_README.md" "$DESTINO_RAIZ\"
+copy "$DOC_ORIGEN\App_colaborativa\FASE4_README.md" "$DESTINO_RAIZ\"
+copy "$DOC_ORIGEN\App_colaborativa\FASE5_README.md" "$DESTINO_RAIZ\"
+
+PASO 7: Integrar webapp
+------------------------
+cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa"
+python integrar_sistema_judicial.py
+
+============================================================================
+QUÉ ESPERAR DEL SCRIPT AUTOMÁTICO
+============================================================================
+
+El script hará lo siguiente:
+
+1. CREAR BACKUP
+   → Copia completa en: App_colaborativa_backup_20250112_HHMMSS
+
+2. ANÁLISIS
+   → Mostrará qué archivos de autores encontró
+   → Mostrará archivos únicos que conservará
+
+3. CONFIRMACIÓN
+   → Te preguntará si continuar
+
+4. ELIMINACIÓN
+   → Borrará ~15 archivos de autores
+   → Borrará 4 bases de datos de autores
+
+5. COPIA
+   → Copiará 16 archivos judiciales
+   → Copiará 3 scripts de utilidad
+   → Copiará documentación
+
+6. INTEGRACIÓN
+   → Modificará end2end_webapp.py
+   → Agregará rutas judiciales
+
+7. REPORTE
+   → Mostrará estadísticas
+   → Indicará próximos pasos
+
+============================================================================
+SOLUCIÓN DE PROBLEMAS
+============================================================================
+
+Error: "No se puede ejecutar scripts"
+Solución:
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Error: "Acceso denegado"
+Solución:
+  Ejecutar PowerShell como Administrador
+
+Error: "No se encuentra el archivo"
+Solución:
+  Verificar que descomprimiste en la ruta correcta
+  Verificar que el nombre de la carpeta es sentency-main o similar
+
+Error: "python no reconocido"
+Solución:
+  Instalar Python desde python.org
+  Asegurarse de marcar "Add Python to PATH"
+
+============================================================================
+DESPUÉS DE LA MIGRACIÓN
+============================================================================
+
+Tu repositorio original tendrá:
+
+ELIMINADO:
+  ❌ Sistema de autores (20 archivos)
+  ❌ Bases de datos de autores (4 archivos)
+
+AGREGADO:
+  ✅ Sistema judicial argentino (16 archivos)
+  ✅ Adaptador ANALYSER-Judicial
+  ✅ Webapp con rutas judiciales
+  ✅ Documentación completa (11 archivos)
+
+SIN CAMBIOS:
+  ✅ ANALYSER v2.0 (core)
+  ✅ Sistema RAG + embeddings
+  ✅ Procesamiento PDF
+  ✅ Chunking inteligente
+  ✅ Todos los demás componentes
+
+============================================================================
+BACKUP DE SEGURIDAD
+============================================================================
+
+El script crea un backup automático en:
+  App_colaborativa_backup_[FECHA_HORA]
+
+Si algo sale mal, puedes restaurar con:
+  cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL"
+  rmdir /s /q App_colaborativa
+  rename App_colaborativa_backup_XXXXXXXX App_colaborativa
+
+============================================================================
+CONTACTO Y AYUDA
+============================================================================
+
+Si tienes problemas durante la migración:
+
+1. Revisa el backup se creó correctamente
+2. Lee MIGRACION_WINDOWS.md para más detalles
+3. Verifica que Python y las dependencias estén instaladas
+4. Asegúrate de ejecutar PowerShell como Administrador
+
+============================================================================
+¡LISTO PARA EMPEZAR!
+============================================================================
+
+Comandos exactos para tu caso:
+
+1. Abrir PowerShell (Admin)
+
+2. Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+3. cd "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main"
+
+4. .\migrar_windows.ps1 -RepoOriginal "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\V3 APP AUTORAL\App_colaborativa" -RepoDescargado "C:\Users\USUARIO\Programacion\V4 SENTENCIA AUTORAL\zip\sentency-main"
+
+============================================================================
