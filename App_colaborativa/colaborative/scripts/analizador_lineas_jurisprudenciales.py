@@ -29,10 +29,13 @@ from collections import Counter, defaultdict
 import statistics
 
 # Configuración
+# Importar configuración centralizada
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from config import DATABASE_PATH as DB_FILE, BASES_RAG_DIR
+
 SCRIPT_DIR = Path(__file__).parent
-BASE_DIR = SCRIPT_DIR.parent
-BASES_RAG_DIR = BASE_DIR / "bases_rag" / "cognitiva"
-DB_FILE = BASES_RAG_DIR / "juez_centrico_arg.db"
 
 # Colores
 class Colors:

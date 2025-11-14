@@ -26,15 +26,19 @@ import uuid
 # Importar extractor de metadata
 from extractor_metadata_argentina import ExtractorMetadataArgentina
 
-# Configuración
-SCRIPT_DIR = Path(__file__).parent
-BASE_DIR = SCRIPT_DIR.parent
-BASES_RAG_DIR = BASE_DIR / "bases_rag" / "cognitiva"
-DB_FILE = BASES_RAG_DIR / "juez_centrico_arg.db"
-DATA_DIR = BASE_DIR / "data"
-PDF_DIR = DATA_DIR / "pdfs"
-TXT_DIR = DATA_DIR / "txt"
-CHUNKS_DIR = DATA_DIR / "chunks"
+# Importar configuración centralizada
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from config import (
+    DATABASE_PATH as DB_FILE,
+    BASE_DIR,
+    DATA_DIR,
+    PDF_DIR,
+    TXT_DIR,
+    CHUNKS_DIR,
+    BASES_RAG_DIR
+)
 
 # Parámetros de chunking
 CHUNK_TOKENS = 1000

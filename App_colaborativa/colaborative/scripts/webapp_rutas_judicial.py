@@ -46,11 +46,11 @@ from analizador_lineas_jurisprudenciales import AnalizadorLineasJurisprudenciale
 from analizador_redes_influencia import AnalizadorRedesInfluencia
 from motor_predictivo_judicial import MotorPredictivoJudicial
 
-# Configuración
-SCRIPT_DIR = Path(__file__).parent
-BASE_DIR = SCRIPT_DIR.parent
-BASES_RAG_DIR = BASE_DIR / "bases_rag" / "cognitiva"
-DB_JUDICIAL = BASES_RAG_DIR / "juez_centrico_arg.db"
+# Importar configuración centralizada
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from config import DATABASE_PATH as DB_JUDICIAL, BASE_DIR, BASES_RAG_DIR
 
 # Instancias globales
 biblioteca_judicial = None

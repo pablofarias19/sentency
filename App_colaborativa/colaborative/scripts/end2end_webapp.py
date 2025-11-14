@@ -13,6 +13,18 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))  # Agregar directorio actual primero
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
+# Importar configuración centralizada
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from config import (
+    DATABASE_PATH,
+    BASE_DIR,
+    DATA_DIR,
+    MODELS_DIR,
+    BASES_RAG_DIR,
+    COGNITIVA_DIR,
+    get_db_connection
+)
+
 import re
 import pickle
 import uuid

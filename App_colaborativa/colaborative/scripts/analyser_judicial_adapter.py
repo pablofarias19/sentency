@@ -39,11 +39,11 @@ except ImportError:
 # Importar analizador judicial
 from analizador_pensamiento_judicial_arg import AnalizadorPensamientoJudicialArg
 
-# Configuración
-SCRIPT_DIR = Path(__file__).parent
-BASE_DIR = SCRIPT_DIR.parent
-BASES_RAG_DIR = BASE_DIR / "bases_rag" / "cognitiva"
-DB_JUDICIAL = BASES_RAG_DIR / "juez_centrico_arg.db"
+# Importar configuración centralizada
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from config import DATABASE_PATH as DB_JUDICIAL, BASE_DIR, BASES_RAG_DIR
 
 
 class AnalyserJudicialAdapter:
