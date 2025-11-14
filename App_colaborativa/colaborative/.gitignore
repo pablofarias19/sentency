@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Bases de datos SQLite (archivos generados)
+*.db
+*.sqlite
+*.sqlite3
+
+# Índices FAISS y archivos de embeddings (grandes, se regeneran)
+bases_rag/cognitiva/*.index
+bases_rag/cognitiva/*.pkl
+bases_rag/cognitiva/*.npy
+
+# Logs
+logs/*.log
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*~
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+
+# Caché de modelos (grandes, se descargan)
+models/**/pytorch_model.bin
+models/**/*.safetensors
+
+# Resultados y datos generados
+data/resultados/*
+data/cache_informes/*
+informes_generados/*
+
+# Excepciones (mantener estructura de directorios)
+!.gitkeep
