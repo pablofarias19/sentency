@@ -1,26 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-⚖️ ANALIZADOR ESTRUCTURAL DE SENTENCIAS - V7.6
+⚖️ ANALIZADOR ESTRUCTURAL DE SENTENCIAS - V7.7
 ==============================================
 
-Módulo especializado para el análisis de la estructura tripartita
+Modulo especializado para el analisis de la estructura tripartita
 de sentencias judiciales argentinas: VISTO - CONSIDERANDO - RESUELVO
 
-CARACTERÍSTICAS:
-- Identificación automática de las tres secciones
-- Extracción de contenido específico por sección
-- Análisis diferenciado para medición de distancia doctrinal
-- Reconocimiento de patrones jurídicos argentinos
+CARACTERISTICAS:
+- Identificacion automatica de las tres secciones
+- Extraccion de contenido especifico por seccion
+- Analisis diferenciado para medicion de distancia doctrinal
+- Reconocimiento de patrones juridicos argentinos
+- NUEVO: Analisis de honorarios judiciales con logica de JUS
 
-AUTOR: Sistema Cognitivo v7.6
-FECHA: 11 NOV 2025
+REGLAS DE HONORARIOS (Cordoba):
+==============================
+1. Los honorarios SIEMPRE se determinan en JUS (unidad arancelaria)
+2. El limite del 30% maximo SOLO aplica a:
+   - Sentencias de REGULACION DE HONORARIOS DE LETRADOS/ABOGADOS
+   - NO aplica a causas donde se cita peritos por otras razones
+3. Fuente oficial valores JUS:
+   https://www.justiciacordoba.gob.ar/justiciacordoba/Servicios/JUSyUnidadEconomica/1
+
+AUTOR: Sistema Cognitivo v7.7
+FECHA: 10 DIC 2025
 """
 
 import re
 import json
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
+
+# Importar modulos de honorarios y JUS (si estan disponibles)
+try:
+    from honorarios_judiciales import AnalizadorHonorarios, TipoCausaHonorarios
+    from valores_jus_cordoba import GestorValoresJUS, ValorJUS
+    MODULOS_HONORARIOS_DISPONIBLES = True
+except ImportError:
+    MODULOS_HONORARIOS_DISPONIBLES = False
 
 @dataclass
 class SeccionSentencia:
@@ -326,46 +344,188 @@ class AnalizadorEstructuralSentencias:
             'secciones_detectadas': total_secciones,
             'estructura_valida': total_secciones == 3
         }
-        
+
+        return resultado
+
+    def analizar_honorarios(self, texto: str,
+                            materia: Optional[str] = None,
+                            objeto: Optional[str] = None,
+                            fecha: Optional[str] = None) -> Optional[Dict]:
+        """
+        Analiza los honorarios en la sentencia
+
+        REGLA IMPORTANTE:
+        El limite del 30% maximo SOLO aplica a sentencias que resuelven
+        sobre REGULACION DE HONORARIOS DE LETRADOS/ABOGADOS.
+        NO aplica para causas donde se cita peritos por otras razones.
+
+        Args:
+            texto: Texto completo de la sentencia
+            materia: Materia de la causa (si se conoce)
+            objeto: Objeto del proceso (si se conoce)
+            fecha: Fecha de la sentencia (para valor JUS)
+
+        Returns:
+            Diccionario con analisis de honorarios o None si modulos no disponibles
+        """
+        if not MODULOS_HONORARIOS_DISPONIBLES:
+            return {
+                "error": "Modulos de honorarios no disponibles",
+                "instrucciones": "Importe honorarios_judiciales y valores_jus_cordoba"
+            }
+
+        analizador = AnalizadorHonorarios()
+        resultado = analizador.analizar_sentencia(texto, materia, objeto, fecha)
+
+        return {
+            "tipo_causa": resultado.tipo_causa.value,
+            "es_regulacion_honorarios_letrados": resultado.es_regulacion_honorarios_letrados,
+            "aplica_limite_30_maximo": resultado.aplica_limite_30_maximo,
+            "base_regulatoria_jus": resultado.base_regulatoria_jus,
+            "base_regulatoria_pesos": resultado.base_regulatoria_pesos,
+            "total_honorarios_jus": resultado.total_honorarios_jus,
+            "porcentaje_total": resultado.porcentaje_total,
+            "excede_limite_30": resultado.excede_limite_30,
+            "valor_jus_aplicado": resultado.valor_jus_aplicado,
+            "fecha_valor_jus": resultado.fecha_valor_jus,
+            "observaciones": resultado.observaciones,
+            "honorarios_encontrados": len(resultado.honorarios_regulados),
+            "url_valores_jus": "https://www.justiciacordoba.gob.ar/justiciacordoba/Servicios/JUSyUnidadEconomica/1"
+        }
+
+    def analizar_sentencia_completa_con_honorarios(self, texto: str,
+                                                    materia: Optional[str] = None,
+                                                    objeto: Optional[str] = None,
+                                                    fecha: Optional[str] = None) -> Dict:
+        """
+        Analisis completo de sentencia incluyendo estructura y honorarios
+
+        Args:
+            texto: Texto completo de la sentencia
+            materia: Materia de la causa
+            objeto: Objeto del proceso
+            fecha: Fecha de la sentencia
+
+        Returns:
+            Diccionario con analisis estructural y de honorarios
+        """
+        resultado = self.analizar_sentencia_completa(texto)
+
+        # Agregar analisis de honorarios
+        resultado['analisis_honorarios'] = self.analizar_honorarios(
+            texto, materia, objeto, fecha
+        )
+
         return resultado
 
 def test_analizador():
-    """🧪 Test del analizador estructural"""
-    
+    """Test del analizador estructural"""
+
     texto_ejemplo = """
-    JUZGADO CIVIL Y COMERCIAL N° 5 - LA PLATA
-    EXPEDIENTE N° 12345/2023
-    AUTOS: "GARCÍA, JUAN c/ CLÍNICA MODELO S.A. s/ DAÑOS Y PERJUICIOS"
-    
-    VISTO: La demanda interpuesta por Juan García contra Clínica Modelo S.A. 
-    reclamando daños y perjuicios por mala praxis médica, obrante a fs. 1/15, 
-    la contestación de demanda de fs. 20/25, y las pruebas rendidas...
-    
-    CONSIDERANDO: I) Que surge de autos que el actor se sometió a una 
-    intervención quirúrgica el día 10/01/2022 en el establecimiento demandado.
-    La doctrina mayoritaria establece que en casos de mala praxis médica, 
-    la carga probatoria recae sobre el paciente (conf. López, "Responsabilidad 
-    Médica", p. 123). Sin embargo, este tribunal considera que se ha configurado 
-    la responsabilidad del demandado según surge de la pericia médica de fs. 45.
-    
-    II) Que analizando la prueba rendida, se encuentra probado que hubo 
+    JUZGADO CIVIL Y COMERCIAL N 5 - LA PLATA
+    EXPEDIENTE N 12345/2023
+    AUTOS: "GARCIA, JUAN c/ CLINICA MODELO S.A. s/ DANOS Y PERJUICIOS"
+
+    VISTO: La demanda interpuesta por Juan Garcia contra Clinica Modelo S.A.
+    reclamando danos y perjuicios por mala praxis medica, obrante a fs. 1/15,
+    la contestacion de demanda de fs. 20/25, y las pruebas rendidas...
+
+    CONSIDERANDO: I) Que surge de autos que el actor se sometio a una
+    intervencion quirurgica el dia 10/01/2022 en el establecimiento demandado.
+    La doctrina mayoritaria establece que en casos de mala praxis medica,
+    la carga probatoria recae sobre el paciente (conf. Lopez, "Responsabilidad
+    Medica", p. 123). Sin embargo, este tribunal considera que se ha configurado
+    la responsabilidad del demandado segun surge de la pericia medica de fs. 45.
+
+    II) Que analizando la prueba rendida, se encuentra probado que hubo
     negligencia en el tratamiento...
-    
-    POR ELLO, oído el Ministerio Público y RESUELVO: 
-    1°) HACER LUGAR a la demanda interpuesta por Juan García.
-    2°) CONDENAR a Clínica Modelo S.A. al pago de $500.000 por daños y perjuicios.
-    3°) IMPONER las costas al demandado vencido.
-    
+
+    POR ELLO, oido el Ministerio Publico y RESUELVO:
+    1) HACER LUGAR a la demanda interpuesta por Juan Garcia.
+    2) CONDENAR a Clinica Modelo S.A. al pago de 500 JUS por danos y perjuicios.
+    3) Regular los honorarios del perito medico Dr. Lopez en 50 JUS.
+    4) IMPONER las costas al demandado vencido.
+
                                     Dr. ROBERTO MARTINEZ
                                         Juez Titular
     """
-    
+
     analizador = AnalizadorEstructuralSentencias()
+
+    print("=" * 70)
+    print("TEST DEL ANALIZADOR ESTRUCTURAL DE SENTENCIAS")
+    print("=" * 70)
+
     resultado = analizador.analizar_sentencia_completa(texto_ejemplo)
-    
-    print("🔍 RESULTADO DEL ANÁLISIS ESTRUCTURAL")
-    print("=" * 50)
+
+    print("\nRESULTADO DEL ANALISIS ESTRUCTURAL")
+    print("-" * 50)
     print(json.dumps(resultado, indent=2, ensure_ascii=False))
+
+    # Test de analisis de honorarios
+    print("\n" + "=" * 70)
+    print("TEST DE ANALISIS DE HONORARIOS")
+    print("=" * 70)
+
+    analisis_honorarios = analizador.analizar_honorarios(
+        texto_ejemplo,
+        materia="danos y perjuicios",
+        objeto="danos y perjuicios - mala praxis"
+    )
+
+    print("\nANALISIS DE HONORARIOS:")
+    print("-" * 50)
+    print(json.dumps(analisis_honorarios, indent=2, ensure_ascii=False))
+
+    # Test con causa de regulacion de honorarios de letrados
+    print("\n" + "=" * 70)
+    print("TEST CON CAUSA DE REGULACION DE HONORARIOS DE LETRADOS")
+    print("=" * 70)
+
+    texto_regulacion = """
+    JUZGADO CIVIL - CORDOBA
+    Autos: "PEREZ, CARLOS c/ EMPRESA SA s/ REGULACION DE HONORARIOS DEL LETRADO"
+
+    VISTO: El incidente de regulacion de honorarios promovido por el
+    Dr. Carlos Perez, letrado actor, por su labor en el juicio principal...
+
+    CONSIDERANDO: Que la base regulatoria asciende a 1000 JUS segun
+    constancias de autos. El letrado actor reclama el 35% de dicha base...
+
+    RESUELVO:
+    1) Regular los honorarios del Dr. Carlos Perez, letrado actor, en 350 JUS.
+
+                        Dr. FERNANDEZ - Juez
+    """
+
+    analisis_letrados = analizador.analizar_honorarios(
+        texto_regulacion,
+        materia="regulacion de honorarios",
+        objeto="regulacion de honorarios del letrado actor"
+    )
+
+    print("\nANALISIS DE HONORARIOS (LETRADOS):")
+    print("-" * 50)
+    print(json.dumps(analisis_letrados, indent=2, ensure_ascii=False))
+
+    print("\n" + "=" * 70)
+    print("IMPORTANTE - REGLA DEL 30% MAXIMO:")
+    print("=" * 70)
+    print("""
+El limite del 30% maximo SOLO aplica a:
+- Sentencias de REGULACION DE HONORARIOS DE LETRADOS/ABOGADOS ACTORES
+
+NO aplica a:
+- Causas donde se cita peritos para realizar labor pericial
+- El objeto de la causa es otro (danos, despido, divorcio, etc.)
+
+Los honorarios SIEMPRE se determinan en JUS.
+Si el monto esta en pesos, debe convertirse al valor JUS vigente.
+
+URL oficial para valores JUS actualizados:
+https://www.justiciacordoba.gob.ar/justiciacordoba/Servicios/JUSyUnidadEconomica/1
+    """)
+
 
 if __name__ == "__main__":
     test_analizador()
